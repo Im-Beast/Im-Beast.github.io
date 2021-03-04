@@ -1,0 +1,10 @@
+{
+  "name": "github-website",
+  "short_name": "github-website",
+  "description": "## Build Setup",
+  "icons": [],
+  "start_url": "/?standalone=true",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "lang": "en"
+}
