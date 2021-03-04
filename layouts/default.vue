@@ -16,6 +16,7 @@ export default {
 
 <style lang="scss">
 @import '../assets/scss/theme.scss';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap');
 
 * {
   margin: 0;
@@ -28,6 +29,8 @@ html {
   align-items: center;
   flex-direction: column;
   flex-wrap: wrap;
+
+  font-family: 'Roboto', sans-serif;
 }
 
 button {
