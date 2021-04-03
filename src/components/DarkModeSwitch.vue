@@ -10,7 +10,7 @@ import { defineComponent, Ref, ref, watch } from 'vue'
 export default defineComponent({
 	setup() {
 		const darkTheme: Ref<boolean> = ref(
-			JSON.parse(localStorage.getItem('darkTheme') || 'false')
+			JSON.parse(localStorage.getItem('darkTheme') || 'true')
 		)
 
 		const syncTheme = () =>
