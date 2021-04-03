@@ -5,13 +5,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, Ref, ref, watch } from 'vue'
 
 export default defineComponent({
 	setup() {
-		const darkTheme = ref(
+		const darkTheme: Ref<boolean> = ref(
 			JSON.parse(localStorage.getItem('darkTheme') || 'false')
 		)
+
 		const syncTheme = () =>
 			darkTheme.value
 				? document.querySelector('html')?.classList.add('dark')
@@ -20,7 +21,7 @@ export default defineComponent({
 		watch(darkTheme, () => {
 			darkTheme.value = !!darkTheme.value
 			syncTheme()
-			localStorage.setItem('darkTheme', darkTheme.value)
+			localStorage.setItem('darkTheme', String(darkTheme.value))
 		})
 
 		syncTheme()

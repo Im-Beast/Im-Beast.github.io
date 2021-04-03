@@ -1,10 +1,10 @@
 <template>
 	<div
-		class="relative flex flex-row justify-center items-center overflow-hidden flex flex-row mx-auto w-9/10 p-5 rounded-4xl my-5 shadow-cool text-dark bg-light dark:text-light dark:bg-dark"
+		class="bg-light flex flex-row mx-auto rounded-4xl shadow-cool my-5 text-dark p-5 w-9/10 relative justify-center items-center overflow-hidden dark:bg-dark dark:text-light"
 	>
 		<div v-if="!fetched" class="text-center">
 			<span
-				class="material-icons text-dark dark:text-light text-center pointer-events-none select-none text-6xl animate-spin"
+				class="text-dark text-center animate-spin text-6xl material-icons pointer-events-none select-none dark:text-light"
 			>
 				donut_large
 			</span>
@@ -12,7 +12,7 @@
 		</div>
 		<div v-else-if="!repos.length" class="text-center">
 			<span
-				class="material-icons pointer-events-none select-none text-red-500 text-6xl"
+				class="text-red-500 text-6xl material-icons pointer-events-none select-none"
 			>
 				cancel
 			</span>
@@ -22,21 +22,21 @@
 		<div v-else class="flex flex-row">
 			<button
 				:disabled="!prevPage"
-				class="z-50 ml-2 absolute left-0 bg-primary top-1/2 material-icons"
+				class="bg-primary ml-2 top-1/2 left-0 z-50 absolute material-icons"
 				@click="page--"
 			>
 				navigate_before
 			</button>
 
 			<transition-group
-				class="relative justify-center flex flex-row"
+				class="flex flex-row relative justify-center"
 				name="slide"
 				tag="div"
 			>
 				<div
 					v-for="repo in currRepos"
 					:key="repo.id"
-					class="relative rounded-4xl h-50 w-full p-5 my-3 mx-2 shadow-cool slide-item"
+					class="rounded-4xl h-50 shadow-cool my-3 mx-2 w-full p-5 relative slide-item"
 				>
 					<!-- Repo name-->
 					<h1 class="font-bold text-center text-xl truncate">{{ repo.name }}</h1>
@@ -49,17 +49,17 @@
 					<!-- Repo url and main language -->
 					<div class="flex flex-row items-center">
 						<a
-							class="absolute bottom-5 left-5 text-left self-start"
+							class="text-left bottom-5 left-5 absolute self-start"
 							target="_blank"
 							:href="repo.html_url"
 							>Github repo</a
 						>
 
 						<div
-							class="absolute bottom-5 right-5 ml-auto justify-end flex flex-row items-center"
+							class="flex flex-row ml-auto right-5 bottom-5 absolute justify-end items-center"
 						>
 							<span
-								class="material-icons text-lg mr-1"
+								class="text-lg mr-1 material-icons"
 								style="text-shadow: 0 0 5px white"
 								:style="`color: ${
 									(languageColors && languageColors[repo.language]) || '#FFF'
@@ -77,7 +77,7 @@
 
 			<button
 				:disabled="!nextPage"
-				class="z-50 absolute mr-2 bg-primary top-1/2 right-0 material-icons"
+				class="bg-primary mr-2 top-1/2 right-0 z-50 absolute material-icons"
 				@click="page++"
 			>
 				navigate_next
@@ -96,7 +96,6 @@ import {
 	ref,
 	watch,
 } from 'vue'
-
 import { GithubRepo, LanguageColors } from '../assets/types'
 
 export default defineComponent({
@@ -138,17 +137,19 @@ export default defineComponent({
 				console.warn('Failed to fetch language colors', err)
 			})
 
-		const elPerPage = ref(3)
+		const elPerPage: Ref<number> = ref(3)
 
 		const refreshSizing = () => {
 			const width = window.innerWidth
 			elPerPage.value = Math.min(Math.max(Math.floor(width / 300), 1), 3)
 			page.value = 0
 		}
+
 		onMounted(() => {
 			refreshSizing()
 			window.addEventListener('resize', refreshSizing, false)
 		})
+
 		onUnmounted(() => window.removeEventListener('resize', refreshSizing, false))
 
 		const page: Ref<number> = ref(0)

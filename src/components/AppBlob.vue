@@ -16,17 +16,21 @@
 }
 
 #blob:before {
-	content: '';
 	position: absolute;
+	content: '';
+
 	bottom: 0;
 	left: 0;
+
 	background: linear-gradient(
 		135deg,
 		theme('colors.primary'),
 		theme('colors.secondary')
 	);
+
 	width: 90vw;
 	height: 110vh;
+
 	border-radius: 80% 100% 60% 60%/80% 115% 70%;
 	z-index: -1;
 

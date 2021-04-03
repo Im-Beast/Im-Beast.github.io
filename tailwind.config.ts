@@ -1,8 +1,5 @@
 import { defineConfig } from 'vite-plugin-windicss'
 
-import colors from 'windicss/colors'
-import forms from 'windicss/plugin/forms'
-
 export default defineConfig({
 	darkMode: 'class',
 	theme: {
