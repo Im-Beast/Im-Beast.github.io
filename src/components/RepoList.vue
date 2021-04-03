@@ -36,40 +36,42 @@
 				<div
 					v-for="repo in currRepos"
 					:key="repo.id"
-					class="rounded-4xl h-50 shadow-cool my-3 mx-2 w-full p-5 relative slide-item"
+					class="rounded-4xl h-50 shadow-cool my-3 mx-2 w-full p-5 slide-item"
 				>
-					<!-- Repo name-->
-					<h1 class="font-bold text-center text-xl truncate">{{ repo.name }}</h1>
+					<div class="relative h-full w-full">
+						<!-- Repo name-->
+						<h1 class="font-bold text-center text-xl truncate">{{ repo.name }}</h1>
 
-					<!-- Repo description -->
-					<p class="my-3 max-h-25 overflow-hidden">
-						{{ repo.description }}
-					</p>
+						<!-- Repo description -->
+						<p class="my-3 max-h-25 overflow-hidden">
+							{{ repo.description }}
+						</p>
 
-					<!-- Repo url and main language -->
-					<div class="flex flex-row items-center">
-						<a
-							class="text-left bottom-5 left-5 absolute self-start"
-							target="_blank"
-							:href="repo.html_url"
-							>Github repo</a
-						>
-
-						<div
-							class="flex flex-row ml-auto right-5 bottom-5 absolute justify-end items-center"
-						>
-							<span
-								class="text-lg mr-1 material-icons"
-								style="text-shadow: 0 0 5px white"
-								:style="`color: ${
-									(languageColors && languageColors[repo.language]) || '#FFF'
-								}`"
+						<!-- Repo url and main language -->
+						<div class="flex flex-row items-center">
+							<a
+								class="text-left bottom-0 left-0 absolute self-start"
+								target="_blank"
+								:href="repo.html_url"
+								>Github repo</a
 							>
-								circle
-							</span>
-							<p class="text-stroke">
-								{{ repo.language }}
-							</p>
+
+							<div
+								class="flex flex-row ml-auto right-0 bottom-0 absolute justify-end items-center"
+							>
+								<span
+									class="text-lg mr-1 material-icons"
+									style="text-shadow: 0 0 5px white"
+									:style="`color: ${
+										(languageColors && languageColors[repo.language]) || '#FFF'
+									}`"
+								>
+									circle
+								</span>
+								<p>
+									{{ repo.language }}
+								</p>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -213,7 +215,7 @@ export default defineComponent({
 }
 
 .slide-leave-active {
-	transition: 0.8s ease;
 	position: absolute;
+	transition: 1s;
 }
 </style>
