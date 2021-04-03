@@ -23,10 +23,10 @@ node:
 
 ##### Production:
 yarn:
-`yarn generate` ➜ `yarn start`
+`yarn build`
 
 node:
-`node run generate` ➜ `node run start`
+`node run generate`
 
 ## License
 This website is licensed under **MIT** conditions.
