@@ -1,0 +1,35 @@
+@layer base {
+    
+    html, body {
+        transition: background-color 0.3s;
+        font-family: Roboto, sans-serif;
+    }
+
+    button {
+        @apply bg-primary px-3 py-2 rounded-4xl shadow-md outline-none transition-all duration-500 ease-in-out;
+    }
+
+    button:hover {
+        @apply bg-secondary outline-none;
+    }
+
+    button:focus {
+        @apply outline-none;
+    }
+
+    button:active {
+        @apply ring-2 ring-primary;
+    }
+
+    button:disabled {
+        @apply opacity-0;
+    }
+
+    a {
+        @apply text-primary transition-all duration-500 ease-in-out;
+    }
+
+    a:hover {
+        @apply text-secondary underline;
+    }
+}
