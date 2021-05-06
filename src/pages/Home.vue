@@ -24,16 +24,19 @@
 	</header>
 	<main>
 		<repo-list />
+		<contact-list />
 	</main>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import RepoList from '../components/RepoList.vue'
+import ContactList from '../components/ContactList.vue'
 
 export default defineComponent({
 	components: {
 		RepoList,
+		ContactList,
 	},
 })
 </script>
