@@ -1,6 +1,15 @@
 <template>
-	<div class="p-2" :class="{ 'cursor-pointer': !!redirect }" @click="redirect">
-		<img class="mx-auto h-18" :src="image" :style="imgStyle" />
+	<div
+		class="mx-3 flex flex-col items-center"
+		:class="{ 'cursor-pointer': !!redirect }"
+		@click="redirect"
+	>
+		<div
+			class="hover:animate-spin ease-in-out"
+			style="animation-iteration-count: 1; animation-duration: 0.35s"
+		>
+			<img class="w-16 h-16" :src="image" :style="imgStyle" />
+		</div>
 		<p>{{ title }}</p>
 	</div>
 </template>
