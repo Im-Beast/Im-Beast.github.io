@@ -1,9 +1,5 @@
 <template>
-	<div
-		class="mx-3 flex flex-col items-center"
-		:class="{ 'cursor-pointer': !!redirect }"
-		@click="redirect"
-	>
+	<div class="mx-3 cursor-pointer flex flex-col items-center" @click="redirect">
 		<div
 			class="hover:animate-spin ease-in-out"
 			style="animation-iteration-count: 1; animation-duration: 0.35s"
