@@ -1,5 +1,9 @@
 @layer base {
-    
+
+    :root {
+        --brightness: 1000%;
+    }
+
     html, body {
         transition: background-color 0.3s;
         font-family: Roboto, sans-serif;
@@ -32,4 +36,23 @@
     a:hover {
         @apply text-secondary underline;
     }
+
+    .hover-shadow {
+        @apply duration-350 ease-in-out;
+    }
+
+    .hover-shadow:hover {
+        filter: brightness(var(--brightness)) drop-shadow(0 0 10px theme('colors.primary')) !important;
+    }
+
+    .dynamic-brightness {
+        --brightness: 15%;
+        filter: brightness(var(--brightness));
+    }
+
+    .dark .dynamic-brightness {
+        --brightness: 100%;
+        filter: brightness(var(--brightness));
+    }
+
 }

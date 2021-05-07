@@ -1,9 +1,6 @@
 <template>
 	<div class="mx-3 cursor-pointer flex flex-col items-center" @click="redirect">
-		<div
-			class="hover:animate-spin ease-in-out"
-			style="animation-iteration-count: 1; animation-duration: 0.35s"
-		>
+		<div class="hover-shadow dynamic-brightness">
 			<img class="w-16 h-16" :src="image" :style="imgStyle" />
 		</div>
 		<p>{{ title }}</p>
