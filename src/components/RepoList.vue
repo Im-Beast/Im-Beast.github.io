@@ -98,7 +98,7 @@ import {
 	ref,
 	watch,
 } from 'vue'
-import { GithubRepo, LanguageColors } from '../assets/types'
+import { GithubRepo, GithubOrg, LanguageColors } from '../assets/types'
 
 export default defineComponent({
 	setup() {
@@ -106,20 +106,35 @@ export default defineComponent({
 
 		const repos: Ref<GithubRepo[]> = ref([])
 
-		const updateRepos = () => {
-			fetched.value = false
+		const updateRepos = async () => {
 			repos.value = []
+			fetched.value = false
 
+			repos.value.push(
+				...(await fetchRepos('https://api.github.com/users/Im-Beast/repos'))
+			)
+
+			await fetch('https://api.github.com/users/Im-Beast/orgs')
+				.then((r) => r.json())
+				.then((orgs) =>
+					orgs.forEach(async (org: GithubOrg) => {
+						repos.value.push(...(await fetchRepos(org.repos_url)))
+					})
+				)
+		}
+
+		const fetchRepos = async (url: string) => {
 			// Thanks github for your api https://docs.github.com/en/rest
-			fetch('https://api.github.com/users/Im-Beast/repos?type=private')
+			return await fetch(url)
 				.then((res) => res.json())
 				.then((json) => {
 					fetched.value = true
-					repos.value = json.filter((v: GithubRepo) => v.language) as GithubRepo[]
+					return json.filter((v: GithubRepo) => v.language) as GithubRepo[]
 				})
 				.catch((err) => {
 					fetched.value = true
 					console.warn('Failed to fetch repos', err)
+					return [] as GithubRepo[]
 				})
 		}
 

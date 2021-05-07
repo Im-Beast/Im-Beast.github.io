@@ -6,6 +6,14 @@ export interface GithubRepo {
 	html_url: string
 }
 
+export interface GithubOrg {
+	id: number
+	login: string
+	description: string
+	url: string
+	repos_url: string
+}
+
 export interface LanguageColors {
 	[name: string]: {
 		color: string
