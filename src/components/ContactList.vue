@@ -2,7 +2,7 @@
 	<div
 		class="bg-light flex flex-row mx-auto rounded-4xl shadow-cool my-5 text-dark p-5 w-9/10 relative justify-center items-center overflow-hidden dark:bg-dark dark:text-light"
 	>
-		<div class="flex flex-wrap">
+		<div class="flex flex-wrap justify-center items-center">
 			<contact-card
 				image="./discord-logo.svg"
 				title="Beast#6968"
