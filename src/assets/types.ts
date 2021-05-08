@@ -20,3 +20,9 @@ export interface LanguageColors {
 		url: string
 	}
 }
+
+export interface CachedInfo {
+	expire: number
+	repos: GithubRepo[]
+	orgs: GithubOrg[]
+}

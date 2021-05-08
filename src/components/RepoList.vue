@@ -10,7 +10,7 @@
 			</span>
 			<p class="text-4xl">Loading repos</p>
 		</div>
-		<div v-else-if="!repos.length" class="text-center">
+		<div v-else-if="!info.repos.length" class="text-center">
 			<span
 				class="text-red-500 text-6xl material-icons pointer-events-none select-none"
 			>
@@ -94,33 +94,46 @@ import {
 	defineComponent,
 	onMounted,
 	onUnmounted,
+	reactive,
 	Ref,
 	ref,
 	watch,
 } from 'vue'
-import { GithubRepo, GithubOrg, LanguageColors } from '../assets/types'
+import {
+	GithubRepo,
+	GithubOrg,
+	LanguageColors,
+	CachedInfo,
+} from '../assets/types'
 
 export default defineComponent({
 	setup() {
 		const fetched: Ref<boolean> = ref(false)
 
-		const repos: Ref<GithubRepo[]> = ref([])
+		const info: CachedInfo = reactive(
+			JSON.parse(localStorage.getItem('cachedInfo') || 'false') || {
+				expires: 0,
+				repos: [],
+				orgs: [],
+			}
+		)
 
 		const updateRepos = async () => {
-			repos.value = []
+			info.repos = []
 			fetched.value = false
 
-			repos.value.push(
+			info.repos.push(
 				...(await fetchRepos('https://api.github.com/users/Im-Beast/repos'))
 			)
 
 			await fetch('https://api.github.com/users/Im-Beast/orgs')
 				.then((r) => r.json())
-				.then((orgs) =>
+				.then((orgs) => {
+					info.orgs = orgs
 					orgs.forEach(async (org: GithubOrg) => {
-						repos.value.push(...(await fetchRepos(org.repos_url)))
+						info.repos.push(...(await fetchRepos(org.repos_url)))
 					})
-				)
+				})
 		}
 
 		const fetchRepos = async (url: string) => {
@@ -138,7 +151,20 @@ export default defineComponent({
 				})
 		}
 
-		updateRepos()
+		if (!info.expire || info.expire < Date.now()) {
+			updateRepos().then(() => {
+				localStorage.setItem(
+					'cachedInfo',
+					JSON.stringify({
+						expire: Date.now() + 5 * 60 * 1000,
+						repos: info.repos,
+						orgs: info.orgs,
+					} as CachedInfo)
+				)
+			})
+		} else {
+			fetched.value = true
+		}
 
 		const languageColors: Ref<LanguageColors> = ref({})
 
@@ -165,21 +191,20 @@ export default defineComponent({
 		onMounted(() => {
 			refreshSizing()
 			window.addEventListener('resize', refreshSizing, false)
+			onUnmounted(() => window.removeEventListener('resize', refreshSizing, false))
 		})
-
-		onUnmounted(() => window.removeEventListener('resize', refreshSizing, false))
 
 		const page: Ref<number> = ref(0)
 
 		const currRepos = computed(() => {
-			return repos.value.slice(
+			return info.repos.slice(
 				page.value * elPerPage.value,
 				elPerPage.value * (page.value + 1)
 			)
 		})
 
 		const maxPage = computed(
-			() => Math.ceil(repos.value.length / elPerPage.value) - 1
+			() => Math.ceil(info.repos.length / elPerPage.value) - 1
 		)
 
 		const prevPage = computed(() => page.value > 0)
@@ -202,7 +227,7 @@ export default defineComponent({
 			currRepos,
 			elPerPage,
 			fetched,
-			repos,
+			info,
 			page,
 		}
 	},
