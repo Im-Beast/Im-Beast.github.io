@@ -1,6 +1,6 @@
 # My website
-You can find it [here](https://im-beast.github.io).
-It is automatically deployed to github pages using `JamesIves/github-pages-deploy-action@3.6.2`.
+You can find it [here](https://im-beast.github.io). <br />
+It is automatically deployed to github pages using `JamesIves/github-pages-deploy-action@3.6.2`. <br />
 Build files are under [gh-pages](https://github.com/Im-Beast/Im-Beast.github.io/tree/gh-pages) branch
 
 ## 🏭 Techstack
