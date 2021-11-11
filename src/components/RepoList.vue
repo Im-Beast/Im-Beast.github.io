@@ -31,7 +31,7 @@
 </style>
 
 <script lang="ts">
-import { ref, Ref } from 'vue'
+import { ref, Ref, watch } from 'vue'
 
 interface Repo {
     license: string;
@@ -42,7 +42,12 @@ interface Repo {
     description: string;
 }
 
-let repos: Ref<Repo[]> = ref(JSON.parse(localStorage.getItem("cached-repos") || "[]"))
+const repos: Ref<Repo[]> = ref(JSON.parse(localStorage.getItem("cached-repos") || "[]"))
+
+const cacheRepos = () => {
+    repos.value = repos.value.reverse().filter((v, i, a) => a.findIndex((t) => t.url === v.url) === i).sort((a, b) => b.stars - a.stars)
+    localStorage.setItem("cached-repos", JSON.stringify(repos.value))
+}
 
 void async function () {
     try {
@@ -64,13 +69,12 @@ void async function () {
                     stars
                 })
         }
+        cacheRepos()
     } catch (err) {
         console.error("Something happened", err)
     }
 }()
 
-repos.value = repos.value.reverse().filter((v, i, a) => a.findIndex((t) => t.url === v.url) === i).sort((a, b) => b.stars - a.stars)
-localStorage.setItem("cached-repos", JSON.stringify(repos.value))
 
 const repoPage = ref(0);
 let reposPerPage = 3;
@@ -87,6 +91,10 @@ const changePage = (diff: number) => {
     repoPage.value = (repoPage.value + diff) % repoPages.value.length
     if (repoPage.value < 0) repoPage.value += repoPages.value.length
 }
+
+watch(repos, () => {
+    repoPages.value = [...chunkify(repos.value, reposPerPage)]
+})
 
 window.addEventListener("resize", () => {
     reposPerPage = Math.floor(Math.min(Math.max(window.innerWidth / 300, 1), 3))
