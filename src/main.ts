@@ -1,9 +1,15 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+// Vue
+import { createApp } from "vue";
+import App from "./App.vue";
 
-import router from './router'
+// Vue Router
+import { router } from "./router/index";
 
-import 'virtual:windi.css'
-import './assets/main.css'
+// WindiCSS
+import "virtual:windi.css";
+import "virtual:windi-devtools";
 
-createApp(App).use(router).mount('#app')
+// Global CSS
+import "./assets/global.css";
+
+createApp(App).use(router).mount("#app");

@@ -1,261 +1,106 @@
 <template>
-	<div
-		class="bg-light flex flex-row mx-auto rounded-4xl shadow-cool my-5 text-dark p-5 w-9/10 relative justify-center items-center overflow-hidden dark:bg-dark dark:text-light"
-	>
-		<div v-if="!fetched" class="text-center">
-			<span
-				class="text-dark text-center animate-spin text-6xl material-icons pointer-events-none select-none dark:text-light"
-			>
-				donut_large
-			</span>
-			<p class="text-4xl">Loading repos</p>
-		</div>
-		<div v-else-if="!info.repos.length" class="text-center">
-			<span
-				class="text-red-500 text-6xl material-icons pointer-events-none select-none"
-			>
-				cancel
-			</span>
-			<p class="text-4xl">Failed to fetch repos</p>
-			<button class="mt-5" @mouseup="updateRepos">Try again</button>
-		</div>
-		<div v-else class="flex flex-row">
-			<button
-				:disabled="!prevPage"
-				class="bg-primary ml-2 top-1/2 left-0 z-50 absolute material-icons"
-				@click="page--"
-			>
-				navigate_before
-			</button>
+    <div class="flex flex-row w-full relative">
+        <button class="-right-2 handy-button" @click="changePage(1)">👉</button>
+        <button class="-left-2 handy-button" @click="changePage(-1)">👈</button>
 
-			<transition-group
-				class="flex flex-row relative justify-center"
-				name="slide"
-				tag="div"
-			>
-				<div
-					v-for="repo in currRepos"
-					:key="repo.id"
-					class="rounded-4xl h-50 shadow-cool my-3 mx-2 w-full p-5 slide-item"
-				>
-					<div class="relative h-full w-full">
-						<!-- Repo name-->
-						<h1 class="font-bold text-center text-xl truncate">{{ repo.name }}</h1>
-
-						<!-- Repo description -->
-						<p class="my-3 max-h-25 overflow-hidden">
-							{{ repo.description }}
-						</p>
-
-						<!-- Repo url and main language -->
-						<div class="flex flex-row items-center">
-							<a
-								class="text-left bottom-0 left-0 absolute self-start"
-								target="_blank"
-								:href="repo.html_url"
-								>Github repo</a
-							>
-
-							<div
-								class="flex flex-row ml-auto right-0 bottom-0 absolute justify-end items-center"
-							>
-								<span
-									class="text-lg mr-1 material-icons"
-									style="text-shadow: 0 0 5px white"
-									:style="`color: ${
-										(languageColors && languageColors[repo.language]) || '#FFF'
-									}`"
-								>
-									circle
-								</span>
-								<p>
-									{{ repo.language }}
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</transition-group>
-
-			<button
-				:disabled="!nextPage"
-				class="bg-primary mr-2 top-1/2 right-0 z-50 absolute material-icons"
-				@click="page++"
-			>
-				navigate_next
-			</button>
-		</div>
-	</div>
+        <div
+            class="rounded-lg bg-dark-300 border-r-3 border-r-dark-800 my-2 mx-1 min-h-53 w-full p-3"
+            v-for="{ name, description, license, stars, html_url } in repoPages[repoPage]"
+            :key="html_url"
+        >
+            <h2 class="border-b border-b-2 border-b-dark-800 text-lg p-1 truncate">{{ name }}</h2>
+            <p class="h-full p-1">{{ description }}</p>
+            <div
+                class="rounded-lg flex flex-row bg-dark-100 p-2 transform -translate-y-4/2 justify-evenly"
+            >
+                <p title="Repository stars">⭐ {{ stars }}</p>
+                <p v-if="license" title="License">📝 {{ license }}</p>
+                <p title="Repository page">
+                    📦
+                    <a :href="html_url" target="_blank">Repo</a>
+                </p>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script lang="ts">
-import {
-	computed,
-	defineComponent,
-	onMounted,
-	onUnmounted,
-	reactive,
-	Ref,
-	ref,
-	watch,
-} from 'vue'
-import {
-	GithubRepo,
-	GithubOrg,
-	LanguageColors,
-	CachedInfo,
-} from '../assets/types'
-
-export default defineComponent({
-	setup() {
-		const fetched: Ref<boolean> = ref(false)
-
-		const info: CachedInfo = reactive(
-			JSON.parse(localStorage.getItem('cachedInfo') || 'false') || {
-				expires: 0,
-				repos: [],
-				orgs: [],
-			}
-		)
-
-		const updateRepos = async () => {
-			info.repos = []
-			fetched.value = false
-
-			info.repos.push(
-				...(await fetchRepos('https://api.github.com/users/Im-Beast/repos'))
-			)
-
-			await fetch('https://api.github.com/users/Im-Beast/orgs')
-				.then((r) => r.json())
-				.then((orgs) => {
-					info.orgs = orgs
-					orgs.forEach(async (org: GithubOrg) => {
-						info.repos.push(...(await fetchRepos(org.repos_url)))
-					})
-				})
-		}
-
-		const fetchRepos = async (url: string) => {
-			// Thanks github for your api https://docs.github.com/en/rest
-			return await fetch(url)
-				.then((res) => res.json())
-				.then((json) => {
-					fetched.value = true
-					return json.filter((v: GithubRepo) => v.language) as GithubRepo[]
-				})
-				.catch((err) => {
-					fetched.value = true
-					console.warn('Failed to fetch repos', err)
-					return [] as GithubRepo[]
-				})
-		}
-
-		if (!info.expire || info.expire < Date.now()) {
-			updateRepos().then(() => {
-				localStorage.setItem(
-					'cachedInfo',
-					JSON.stringify({
-						expire: Date.now() + 5 * 60 * 1000,
-						repos: info.repos,
-						orgs: info.orgs,
-					} as CachedInfo)
-				)
-			})
-		} else {
-			fetched.value = true
-		}
-
-		const languageColors: Ref<LanguageColors> = ref({})
-
-		// Thanks to https://github.com/LeeReindeer/github-colors (fork of https://github.com/ozh/github-colors)
-		fetch(
-			'https://raw.githubusercontent.com/LeeReindeer/github-colors/go/color.json'
-		)
-			.then((res) => res.json())
-			.then((json) => {
-				languageColors.value = json as LanguageColors
-			})
-			.catch((err) => {
-				console.warn('Failed to fetch language colors', err)
-			})
-
-		const elPerPage: Ref<number> = ref(3)
-
-		const refreshSizing = () => {
-			const width = window.innerWidth
-			elPerPage.value = Math.min(Math.max(Math.floor(width / 300), 1), 3)
-			page.value = 0
-		}
-
-		onMounted(() => {
-			refreshSizing()
-			window.addEventListener('resize', refreshSizing, false)
-			onUnmounted(() => window.removeEventListener('resize', refreshSizing, false))
-		})
-
-		const page: Ref<number> = ref(0)
-
-		const currRepos = computed(() => {
-			return info.repos.slice(
-				page.value * elPerPage.value,
-				elPerPage.value * (page.value + 1)
-			)
-		})
-
-		const maxPage = computed(
-			() => Math.ceil(info.repos.length / elPerPage.value) - 1
-		)
-
-		const prevPage = computed(() => page.value > 0)
-		const nextPage = computed(() => page.value < maxPage.value)
-
-		const setCSSProperty = (key: string, val: string) => {
-			;(document.querySelector(':root') as HTMLElement).style.setProperty(key, val)
-		}
-
-		watch(page, (val, oldval) => {
-			setCSSProperty('--change-percentage', `${(oldval - val) * 100}%`)
-			page.value = val > maxPage.value ? maxPage.value : val < 0 ? 0 : val
-		})
-
-		return {
-			prevPage,
-			nextPage,
-			updateRepos,
-			languageColors,
-			currRepos,
-			elPerPage,
-			fetched,
-			info,
-			page,
-		}
-	},
-})
-</script>
-
-<style>
-:root {
-	--change-percentage: 100%;
-}
-
-.slide-item {
-	transition: all 1s ease-in-out;
-}
-
-.slide-enter-from {
-	opacity: 0;
-	transform: translateX(var(--change-percentage));
-}
-
-.slide-leave-to {
-	transition: 0.5s ease-in-out;
-	opacity: 0;
-	transform: translateX(calc(var(--change-percentage) * -1)) translateY(100%);
-}
-
-.slide-leave-active {
-	position: absolute;
-	transition: 1s;
+<style scoped>
+.handy-button {
+    @apply outline-none text-xl transform top-1/2 -translate-y-1/2 duration-50 absolute hover:text-2xl;
 }
 </style>
+
+<script lang="ts">
+import { ref, Ref } from 'vue'
+
+interface Repo {
+    license: string;
+    stars: number;
+    name: string;
+    html_url: string;
+    url: string;
+    description: string;
+}
+
+let repos: Ref<Repo[]> = ref(JSON.parse(localStorage.getItem("cached-repos") || "[]"))
+
+void async function () {
+    try {
+        const _orgs = await (await fetch("https://api.github.com/users/Im-Beast/orgs")).json()
+        const _repos = await (await fetch("https://api.github.com/users/Im-Beast/repos")).json()
+
+        for (const { url } of _orgs) {
+            _repos.push(...await (await fetch(`${url}/repos`)).json())
+        }
+
+        for (const { name, url, html_url, description, fork, license, stargazers_count: stars } of _repos) {
+            if (!fork)
+                repos.value.push({
+                    name,
+                    html_url,
+                    url,
+                    description,
+                    license: license?.spdx_id || "",
+                    stars
+                })
+        }
+    } catch (err) {
+        console.error("Something happened", err)
+    }
+}()
+
+repos.value = repos.value.reverse().filter((v, i, a) => a.findIndex((t) => t.url === v.url) === i).sort((a, b) => b.stars - a.stars)
+localStorage.setItem("cached-repos", JSON.stringify(repos.value))
+
+const repoPage = ref(0);
+let reposPerPage = 3;
+
+function* chunkify<T>(array: T[], n: number) {
+    for (let i = 0; i < array.length; i += n) {
+        yield array.slice(i, i + n)
+    }
+}
+
+const repoPages = ref([...chunkify<Repo>(repos.value, reposPerPage)])
+
+const changePage = (diff: number) => {
+    repoPage.value = (repoPage.value + diff) % repoPages.value.length
+    if (repoPage.value < 0) repoPage.value += repoPages.value.length
+}
+
+window.addEventListener("resize", () => {
+    reposPerPage = Math.floor(Math.min(Math.max(window.innerWidth / 300, 1), 3))
+    repoPages.value = [...chunkify(repos.value, reposPerPage)]
+})
+
+export default {
+    data() {
+        return {
+            repos,
+            repoPage,
+            repoPages,
+            changePage
+        }
+    }
+}
+</script>

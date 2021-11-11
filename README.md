@@ -1,32 +1,21 @@
-# Im-Beast website
-My website hosted using [github pages](https://pages.github.com).
-
+# My website
 You can find it [here](https://im-beast.github.io).
+It is automatically deployed to github pages using `JamesIves/github-pages-deploy-action@3.6.2`.
+Build files are under [gh-pages](https://github.com/Im-Beast/Im-Beast.github.io/tree/gh-pages) branch
 
-## Techstack
+## 🏭 Techstack
 This website has been created using:
-* :keyboard: [Typescript](https://github.com/microsoft/TypeScript)
-* :vulcan_salute: [Vue v3](https://github.com/vuejs/vue-next)
-* :zap: [Vite](https://github.com/vitejs/vite)
-* :dash: [WindiCSS](https://github.com/windicss/windicss)
-## Installation
-* Clone this repo (`git clone https://github.com/Im-Beast/Im-Beast.github.io`)
-* Install dependencies (`yarn` / `npm install`)
+* ⌨️ [Typescript](https://github.com/microsoft/TypeScript)
+* 🖖 [Vue v3](https://github.com/vuejs/vue-next)
+* ⚡ [Vite](https://github.com/vitejs/vite)
+* 💨 [WindiCSS](https://github.com/windicss/windicss)
 
 ## Usage
-##### Development:
-yarn:
-`yarn dev`
 
-node:
+#### Developement:
 `node run dev`
+#### Production:
+`node run build`
 
-##### Production:
-yarn:
-`yarn build`
-
-node:
-`node run generate`
-
-## License
-This website is licensed under **MIT** conditions.
+## 📝 Licensing
+This project is available under MIT License conditions.
