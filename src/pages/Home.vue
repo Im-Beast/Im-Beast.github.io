@@ -1,9 +1,9 @@
 <template>
+    <app-blob />
+
+    <home-hello />
+
     <main>
-        <app-blob />
-
-        <home-hello />
-
         <section
             class="rounded-lg flex flex-col bg-dark-400 border-3 border-dark-800 mx-3 mt-5 max-w-200 p-3 -translate-x-1/2 items-center md:flex-row md:mx-auto md:items-start lg:transform lg:w-3/4"
         >

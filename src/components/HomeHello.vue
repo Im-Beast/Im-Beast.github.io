@@ -109,9 +109,11 @@ const finishWelcoming = () => {
     setTimeout(() => {
         emit("finish")
         welcomeFinished.value = true
+        document.body.style.overflow = "visible"
     }, 1000)
     startLoweringVolume()
 }
+
 
 let welcomeFinished = ref(localStorage.getItem("welcome-finished") === "true")
 let musicMuted = localStorage.getItem("mute-music") === "true"
@@ -121,6 +123,7 @@ if (musicMuted) {
 }
 
 if (!welcomeFinished.value) {
+    document.body.style.overflow = "hidden"
     localStorage.setItem("welcome-finished", "true")
 } else {
     onMounted(() => audioEl.value.volume = 0.01)
