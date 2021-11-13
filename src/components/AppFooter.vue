@@ -22,6 +22,10 @@ const muteMusic = ref(localStorage.getItem("mute-music") === "true")
 const toggleAudio = () => {
     const audio = document.querySelector("audio")
     if (!audio) return;
+    
+    if (!localStorage.getItem("mute-music")) {
+        localStorage.setItem("mute-music", "false")
+    }
 
     if (audio.paused) {
         audio.play()
