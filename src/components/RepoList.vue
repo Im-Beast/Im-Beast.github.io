@@ -17,7 +17,7 @@
                 <p v-if="license" title="License">📝 {{ license }}</p>
                 <p title="Repository page">
                     📦
-                    <a :href="html_url" target="_blank">Repo</a>
+                    <a :href="html_url" rel="noreferrer" target="_blank">Repo</a>
                 </p>
             </div>
         </div>

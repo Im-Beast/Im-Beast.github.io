@@ -3,11 +3,11 @@
         <h2
             class="border-b flex flex-row border-b-2 border-b-dark-800 text-lg p-1 truncate items-center"
         >
-            <img v-if="$props.image" :src="$props.image" class="h-5 pr-1" />
+            <img v-if="$props.image" :src="$props.image" :alt="$props.platform" class="h-5 pr-1" />
             {{ $props.platform }}
         </h2>
         <p class="h-full py-3 px-1">
-            <a v-if="$props.url" :href="$props.url" target="_blank">{{ $props.handle }}</a>
+            <a v-if="$props.url" rel="noreferrer" :href="$props.url" target="_blank">{{ $props.handle }}</a>
             <p v-else>
             {{ $props.handle }}
             </p>
