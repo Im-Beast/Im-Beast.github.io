@@ -3,7 +3,7 @@ html {
 }
 
 a {
-  @apply text-blue-300 hover:text-blue-500 active:text-blue-700 duration-150 underline;
+  @apply text-blue-300 duration-150 underline hover:text-blue-500 active:text-blue-700;
 }
 
 /* width */
