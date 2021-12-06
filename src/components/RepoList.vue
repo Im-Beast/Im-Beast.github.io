@@ -5,6 +5,7 @@
 
     <div
       class="
+        flex flex-col
         rounded-lg
         bg-dark-300
         border-r-3 border-r-dark-800
@@ -22,15 +23,16 @@
       <h2 class="border-b border-b-2 border-b-dark-800 text-lg p-1 truncate">
         {{ name }}
       </h2>
-      <p class="h-full p-1">{{ description }}</p>
+      <p class="p-1">{{ description }}</p>
       <div
         class="
+          mt-auto
           rounded-lg
           flex flex-row
+          text-center
           bg-dark-100
           p-2
           transform
-          -translate-y-4/2
           justify-evenly
         "
       >
@@ -97,13 +99,15 @@
         license,
         stargazers_count: stars,
       } of _repos) {
+        const license_name = license?.spdx_id || "";
+
         if (!fork)
           repos.value.push({
             name,
             html_url,
             url,
             description,
-            license: license?.spdx_id || "",
+            license: license_name === "NOASSERTION" ? "Other" : license_name,
             stars,
           });
       }
