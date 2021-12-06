@@ -3,6 +3,8 @@
 
   <home-hello />
 
+  <falling-snow />
+
   <main>
     <section
       class="
@@ -67,7 +69,7 @@
         lg:transform lg:w-3/4
       "
     >
-      <p class="border-b-3 border-b-dark-800 text-lg w-full p-2">
+      <p class="border-b-3 border-b-dark-800 text-lg w-full p-2 pt-0">
         Github projects
       </p>
       <repo-list />
@@ -91,7 +93,9 @@
         lg:transform lg:w-3/4
       "
     >
-      <p class="border-b-3 border-b-dark-800 text-lg w-full p-2">Contact</p>
+      <p class="border-b-3 border-b-dark-800 text-lg w-full p-2 pt-0">
+        Contact
+      </p>
       <contacts-list />
     </section>
   </main>
@@ -100,6 +104,7 @@
 </template>
 
 <script setup lang="ts">
+  import FallingSnow from "../components/FallingSnow.vue";
   import AppBlob from "../components/AppBlob.vue";
   import HomeHello from "../components/HomeHello.vue";
   import RepoList from "../components/RepoList.vue";
