@@ -16,7 +16,7 @@
   }
 
   #blob:before {
-    position: absolute;
+    position: fixed;
     content: "";
     bottom: 0;
     left: 0;
