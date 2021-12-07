@@ -1,5 +1,5 @@
 <template>
-  <div ref="cloud" class="cloud fixed top-0 left-0 w-full h-full">
+  <div ref="cloud" class="z-5 cloud fixed top-0 left-0 w-full h-full">
     <div
       ref="snowflake"
       class="snowflake select-none pointer-events-none top-0 absolute"
@@ -11,32 +11,29 @@
 
 <style scoped>
   .snowflake {
-    --test: 0%;
+    --move-x: 0%;
     --move-y: 0;
 
-    left: var(--test);
+    left: var(--move-x);
 
     animation: fallingSnow linear infinite 10s;
   }
 
   @keyframes fallingSnow {
     0% {
-      top: 0;
+      top: -5vh;
     }
 
     33% {
-      transform: translateX(-3rem) translateY(var(--move-y));
+      transform: translateX(-3rem) translateY(var(--move-y)) rotate(90deg);
     }
 
     66% {
-      transform: translateX(5rem) translateY(var(--move-y));
-    }
-
-    99% {
-      transform: translateX(-3rem) translateY(var(--move-y));
+      transform: translateX(3rem) translateY(var(--move-y)) rotate(180deg);
     }
 
     100% {
+      transform: translateX(-3rem) translateY(var(--move-y)) rotate(360deg);
       top: 100%;
     }
   }
@@ -49,13 +46,19 @@
   const snowflake = ref({} as HTMLElement);
 
   onMounted(() => {
-    for (let i = 0; i < 100; ++i) {
+    const snowPr = window.devicePixelRatio;
+
+    for (let i = 0; i < 75 / snowPr; ++i) {
       const clone = snowflake.value?.cloneNode(true) as HTMLElement;
 
-      clone.style.setProperty("--test", `${~~(Math.random() * 100)}%`);
-      clone.style.setProperty("--move-y", `${~~(Math.random() * 100)}vh`);
+      const moveFlake = () => {
+        clone.style.setProperty("--move-x", `${~~(Math.random() * 100)}%`);
+        clone.style.setProperty("--move-y", `${~~(Math.random() * 100)}vh`);
+      };
 
-      setTimeout(() => cloud.value.append(clone), i * 90);
+      moveFlake();
+      setTimeout(() => cloud.value.append(clone), i * 90 * snowPr);
+      clone.addEventListener("animationiteration", moveFlake);
     }
   });
 </script>

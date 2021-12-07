@@ -137,12 +137,15 @@
     repoPages.value = [...chunkify(repos.value, reposPerPage)];
   });
 
-  window.addEventListener("resize", () => {
+  const adaptSize = () => {
     reposPerPage = Math.floor(
       Math.min(Math.max(window.innerWidth / 300, 1), 3)
     );
     repoPages.value = [...chunkify(repos.value, reposPerPage)];
-  });
+  };
+
+  window.addEventListener("resize", adaptSize);
+  adaptSize();
 
   export default {
     data() {
