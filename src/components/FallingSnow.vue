@@ -1,8 +1,21 @@
 <template>
-  <div ref="cloud" class="z-5 cloud fixed top-0 left-0 w-full h-full">
+  <div
+    ref="cloud"
+    class="
+      h-full
+      w-full
+      top-0
+      left-0
+      z-5
+      cloud
+      fixed
+      select-none
+      pointer-events-none
+    "
+  >
     <div
       ref="snowflake"
-      class="snowflake select-none pointer-events-none top-0 absolute"
+      class="top-0 snowflake select-none pointer-events-none absolute"
     >
       ❄️
     </div>
