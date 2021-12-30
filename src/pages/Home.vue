@@ -3,7 +3,7 @@
 
   <home-hello />
 
-  <falling-snow />
+  <flying-fireworks />
 
   <main>
     <section
@@ -36,6 +36,22 @@
       <section
         class="text-lg ml-3 text-blue-300 whitespace-pre-line hyphens-auto"
       >
+        <p
+          class="
+            text-center text-purple-300
+            pb-2
+            font-bold
+            border-b-3 border-dark-800
+          "
+        >
+          🎉 Happy
+          <span v-if="new Date().getFullYear() !== 2022">
+            (soon – <span id="ny-time">{{ newYearTime }}</span
+            >)
+          </span>
+          new year
+          <span style="display: inline-block; transform: scaleX(-1)">🎉</span>
+        </p>
         <p class="font-bold my-2 text-xl text-center p-3 md:text-left md:p-0">
           Hello, my name is Mateusz
           <abbr title="also known as">aka</abbr>
@@ -104,7 +120,9 @@
 </template>
 
 <script setup lang="ts">
-  import FallingSnow from "../components/FallingSnow.vue";
+  import { onMounted, ref } from "vue";
+
+  import FlyingFireworks from "../components/FlyingFireworks.vue";
   import AppBlob from "../components/AppBlob.vue";
   import HomeHello from "../components/HomeHello.vue";
   import RepoList from "../components/RepoList.vue";
@@ -112,4 +130,50 @@
   import AppFooter from "../components/AppFooter.vue";
 
   let hovered = false;
+
+  const newYearTime = ref("Eternity!");
+  const is2022 = ref(false);
+
+  onMounted(() => {
+    const time = document.querySelector("#ny-time") as HTMLElement;
+    const interval = setInterval(() => {
+      const newYear = new Date("Jan 1 2022").getTime();
+      // seconds
+      let currentTill = (newYear - Date.now()) / 1000;
+      let text = "";
+
+      if (currentTill <= 0) {
+        is2022.value = true;
+        clearInterval(interval);
+        return;
+      }
+
+      if (currentTill < 60) time.style.color = "rgb(255,110,110)";
+      else if (currentTill < 10 * 60) time.style.color = "rgb(255,155,110)";
+      else if (currentTill < 60 * 60) time.style.color = "rgb(255,255,110)";
+
+      // hours
+      if (currentTill > 60 * 60) {
+        const hours = ~~(currentTill / (60 * 60));
+        text += `${hours}h `.padStart(4, "0");
+        currentTill -= hours * 60 * 60;
+      }
+
+      // minutes
+      if (currentTill > 60) {
+        const minutes = ~~(currentTill / 60);
+        text += `${minutes}m `.padStart(4, "0");
+        currentTill -= minutes * 60;
+      }
+
+      // seconds
+      if (currentTill > 0) {
+        const seconds = ~~currentTill;
+        text += `${seconds}s`.padStart(3, "0");
+        currentTill -= seconds * 60;
+      }
+
+      newYearTime.value = text;
+    }, 250);
+  });
 </script>
