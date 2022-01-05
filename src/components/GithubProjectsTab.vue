@@ -3,55 +3,36 @@
     <button class="-right-2 handy-button" @click="changePage(1)">👉</button>
     <button class="-left-2 handy-button" @click="changePage(-1)">👈</button>
 
-    <div
-      class="
-        flex flex-col
-        rounded-lg
-        bg-dark-300
-        border-r-3 border-r-dark-800
-        my-2
-        mx-1
-        min-h-53
-        w-full
-        p-3
-      "
+    <custom-tab
       v-for="{ name, description, license, stars, html_url } in repoPages[
         repoPage
       ]"
       :key="html_url"
+      class="min-h-59"
     >
-      <h2 class="border-b border-b-2 border-b-dark-800 text-lg p-1 truncate">
-        {{ name }}
-      </h2>
-      <p class="p-1">{{ description }}</p>
-      <div
-        class="
-          mt-auto
-          rounded-lg
-          flex flex-row
-          text-center
-          bg-dark-100
-          p-2
-          transform
-          justify-evenly
-        "
-      >
+      <template v-slot:title>{{ name }}</template>
+      <template v-slot:description>{{ description }}</template>
+      <template v-slot:footer>
         <p title="Repository stars">⭐ {{ stars }}</p>
         <p v-if="license" title="License">📝 {{ license }}</p>
         <p title="Repository page">
           📦
           <a :href="html_url" rel="noreferrer" target="_blank">Repo</a>
         </p>
-      </div>
-    </div>
+      </template>
+    </custom-tab>
   </div>
 </template>
 
 <style scoped>
   .handy-button {
-    @apply outline-none text-xl transform top-1/2 -translate-y-1/2 duration-50 absolute hover:text-2xl;
+    @apply bg-transparent outline-none text-xl transform top-1/2 -translate-y-1/2 duration-50 absolute hover:text-2xl;
   }
 </style>
+
+<script lang="ts" setup>
+  import CustomTab from "./CustomTab.vue";
+</script>
 
 <script lang="ts">
   import { ref, Ref, watch } from "vue";
@@ -112,9 +93,7 @@
           });
       }
       cacheRepos();
-    } catch (err) {
-      console.error("Something happened", err);
-    }
+    } catch (err) {}
   })();
 
   const repoPage = ref(0);
@@ -146,7 +125,6 @@
 
   window.addEventListener("resize", adaptSize);
   adaptSize();
-
   export default {
     data() {
       return {

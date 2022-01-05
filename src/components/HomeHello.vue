@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-if="!welcomeFinished"
-    ref="modalEl"
-    class="h-full bg-dark-400 w-full top-0 left-0 z-50 greeting-modal fixed"
-  >
+  <div v-if="!welcomeFinished" ref="modalEl" class="modal greeting-modal">
     <p
       ref="greetingEl"
       class="
