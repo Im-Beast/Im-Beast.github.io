@@ -24,7 +24,6 @@
     >
       <section class="min-w-max">
         <img
-          @pointerleave="hovered = false"
           class="rounded-lg h-full h-max-45 mr-3"
           src="https://avatars.githubusercontent.com/u/47059999?v=4"
           alt="Im-Beast avatar (Mat, not Pat)"
