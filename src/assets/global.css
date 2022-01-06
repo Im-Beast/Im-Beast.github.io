@@ -37,7 +37,7 @@ button {
 }
 
 .modal {
-  @apply h-full bg-dark-400 bg-opacity-80  w-full top-0 left-0 z-50 fixed;
+  @apply h-full bg-dark-400 bg-opacity-80 w-full top-0 left-0 z-50 fixed;
 }
 
 .fade-enter-active,

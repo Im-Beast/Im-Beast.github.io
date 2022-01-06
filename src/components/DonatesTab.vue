@@ -1,33 +1,5 @@
 <template>
-  <transition name="fade">
-    <div class="modal" v-if="showQRCode" @click="showQRCode = false">
-      <div
-        class="
-          z-10
-          fixed
-          top-1/2
-          left-1/2
-          transform
-          -translate-x-1/2 -translate-y-1/2
-          bg-dark-300
-          rounded-lg
-          border-3 border-dark-800
-          w-1/2
-          p-2
-          w-full
-          h-full
-        "
-      >
-        <img
-          :src="'monero-qr-code.png'"
-          class="image-render-pixel rounded-lg w-full h-full"
-          alt="Monero Address QR Code"
-        />
-      </div>
-    </div>
-  </transition>
-
-  <div class="flex flex-row w-full">
+  <div class="flex flex-row w-full relative">
     <custom-tab class="min-h-59 md:max-w-1/3">
       <template v-slot:title>
         <img :src="'monero.svg'" class="inline h-4.5 mr-1" alt="monero logo" />
@@ -57,7 +29,7 @@
           >
             📋
           </button>
-          <button class="px-2 m-0 ml-1" @click="showQRCode = true">QR</button>
+          <button class="px-2 m-0 ml-1" @click="openQRCode">QR</button>
         </div>
       </template>
     </custom-tab>
@@ -76,5 +48,7 @@
     navigator.clipboard.writeText(element.textContent as string);
   };
 
-  const showQRCode = ref(false);
+  const openQRCode = () => {
+    window.open("monero-qr-code.png", "_blank");
+  };
 </script>
