@@ -71,6 +71,7 @@
 
 	.qr-code {
 		position: fixed;
+		width: auto;
 		height: 40%;
 		image-rendering: pixelated;
 		top: 50%;
