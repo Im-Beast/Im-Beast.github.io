@@ -1,28 +1,28 @@
-# My website
+# 👱🏻‍♂️ My website
 
-You can find it [here](https://im-beast.github.io). <br />
-It is automatically deployed to github pages using `JamesIves/github-pages-deploy-action@3.6.2`. <br />
-Build files are under [gh-pages](https://github.com/Im-Beast/Im-Beast.github.io/tree/gh-pages) branch
+You can find it deployed [here](https://im-beast.rocks) and [there](https://im-beast.github.io).
 
-## 🏭 Techstack
+This repository contains source code and [github pages deployment](https://github.com/Im-Beast/Im-Beast.github.io/tree/gh-pages) of my personal website.
 
-This website has been created using:
+On each commit to the repository project is automatically built and deployed using Github Actions via `JamesIves/github-pages-deploy-action`.
 
-- ⌨️ [Typescript](https://github.com/microsoft/TypeScript)
-- 🖖 [Vue v3](https://github.com/vuejs/vue-next)
-- ⚡ [Vite](https://github.com/vitejs/vite)
-- 💨 [WindiCSS](https://github.com/windicss/windicss)
+## 🏭 Tech stack
 
-## Usage
+This website has been created using [SvelteKit](https://kit.svelte.dev/).
+It uses:
 
-#### Developement:
+- 💖 Svelte
+- ⌨️ Typescript
+- 🎨Plain CSS
 
-`yarn dev`
+## 🧰 Usage
 
-#### Production:
+👷 Development: `npm run dev`
+<br>
+<sub>Other dev scripts can be found in `package.json` file or under `npm run` command</sub>
 
-`yarn build`
+👨🏻‍💼 Production: `npm run build`
 
 ## 📝 Licensing
 
-This project is available under MIT License conditions.
+This project is available under **MIT** License conditions.
