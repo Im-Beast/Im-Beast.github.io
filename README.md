@@ -13,7 +13,7 @@ It uses:
 
 - 💖 Svelte
 - ⌨️ Typescript
-- 🎨Plain CSS
+- 🎨 Plain CSS
 
 ## 🧰 Usage
 
