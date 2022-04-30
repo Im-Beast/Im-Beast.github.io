@@ -38,7 +38,7 @@
 
 <Tab _class="donate-tab">
 	<p slot="title">
-		<img src={img} class="logo" alt={`${title} logo`} />
+		<img src={img} class="logo" alt={`${title} logo`} width="24px" height="24px" />
 		{title}
 	</p>
 	<p slot="description">
