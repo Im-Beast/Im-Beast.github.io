@@ -73,7 +73,7 @@
 
 	let innerWidth = 0;
 	$: displayAmount = ~~Math.min(Math.max(innerWidth / 300, 1), 3);
-	$: canIncrement = position + displayAmount <= data.repos.length;
+	$: canIncrement = position + displayAmount < data.repos.length;
 	$: canDecrement = position - displayAmount >= 0;
 	$: currentRepos = data.repos.slice(position, position + displayAmount);
 </script>
