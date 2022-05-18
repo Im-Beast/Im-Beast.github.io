@@ -39,6 +39,7 @@ body {
 	background-color: var(--background);
 	color: white;
 	max-width: max-content;
+	width: 100%;
 	margin: auto;
 }
 
@@ -110,7 +111,7 @@ code {
 	font-family: "Fira Code", monospace;
 	background-color: rgba(0, 0, 0, 0.1);
 	border-radius: 0.5rem;
-	padding: 0.5rem 0.5rem;
+	padding: 0 0.5rem;
 }
 
 button {
