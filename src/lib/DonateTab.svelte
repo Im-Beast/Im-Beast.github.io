@@ -66,7 +66,6 @@
 <style>
 	:global(.donate-tab) {
 		min-height: 15rem;
-		min-width: 190px;
 	}
 
 	.qr-code {
@@ -81,7 +80,7 @@
 	}
 
 	.address-container {
-		width: 100%;
+		width: fit-content;
 	}
 
 	.address {
@@ -89,6 +88,9 @@
 		align-items: center;
 		margin-right: 0.25rem;
 		overflow-x: auto;
+		word-wrap: break-word;
+		white-space: pre-wrap;
+		word-break: break-word;
 	}
 
 	.logo {

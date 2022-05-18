@@ -4,6 +4,7 @@
 </script>
 
 <section id="donate" in:fade={{ duration: 250 }}>
+	<div class="container" />
 	<DonateTab
 		title={"Monero"}
 		img={"images/monero.svg"}
@@ -37,7 +38,6 @@
 		justify-content: space-evenly;
 
 		width: 100%;
-		max-width: calc(100vw - 1.9rem);
 		min-height: 16rem;
 	}
 

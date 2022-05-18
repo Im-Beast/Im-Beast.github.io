@@ -52,9 +52,8 @@
 
 	#contact {
 		position: relative;
-
 		display: flex;
-		flex-wrap: wrap;
+
 		flex-direction: row;
 		align-items: center;
 		justify-content: space-evenly;

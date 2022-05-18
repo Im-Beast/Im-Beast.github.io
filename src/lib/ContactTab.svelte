@@ -32,7 +32,7 @@
 	}
 
 	:global(.contact-tab) {
-		min-width: 190px;
-		width: calc(25% - 0.5rem) !important;
+		min-width: fit-content;
+		width: 100% !important;
 	}
 </style>
