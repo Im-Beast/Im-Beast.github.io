@@ -108,6 +108,9 @@ address {
 
 code {
 	font-family: "Fira Code", monospace;
+	background-color: rgba(0, 0, 0, 0.1);
+	border-radius: 0.5rem;
+	padding: 0.5rem 0.5rem;
 }
 
 button {
