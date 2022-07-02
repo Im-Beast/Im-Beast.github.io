@@ -44,9 +44,6 @@
 	address {
 		flex-direction: column;
 		padding: 0.5rem;
-	}
-
-	address {
 		font-style: normal;
 	}
 
@@ -56,8 +53,7 @@
 
 		flex-direction: row;
 		align-items: center;
-
-		overflow-x: auto;
+		flex-wrap: wrap;
 
 		height: 100%;
 		width: 100%;
