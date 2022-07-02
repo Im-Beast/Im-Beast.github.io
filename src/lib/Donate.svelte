@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { fade } from "svelte/transition";
+	import { sineInOut } from "svelte/easing";
 	import DonateTab from "./DonateTab.svelte";
 </script>
 
-<section id="donate" in:fade={{ duration: 250 }}>
+<section id="donate" in:fade={{ duration: 250, easing: sineInOut }}>
 	<div class="container" />
 	<DonateTab
 		title={"Monero"}
@@ -11,7 +12,7 @@
 		crypto={{
 			address:
 				"89BoVWjqdGVe68wdxbYurXR8sXaEb96eWKYRPxdT6wSCfZYK6XSHoj5ZRXQLtd7GzL2B2PD7Lb7GSKupkXMWjQVFAEb1CK8",
-			qrCodeImg: "images/monero-qr-code.png"
+			qrCodeImg: "images/monero-qr-code.png",
 		}}
 	>
 		<p slot="description" class="description">
@@ -28,7 +29,7 @@
 	</DonateTab>
 </section>
 
-<style>
+<style lang="scss">
 	#donate {
 		position: relative;
 
@@ -39,9 +40,9 @@
 
 		width: 100%;
 		min-height: 16rem;
-	}
 
-	.description {
-		width: fit-content;
+		.description {
+			width: fit-content;
+		}
 	}
 </style>

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Tab from "./Tab.svelte";
-	import { fly } from "svelte/transition";
-	import { circInOut } from "svelte/easing";
+	import { slide } from "svelte/transition";
 
 	async function copyToClipboard(text: string) {
 		await navigator.clipboard.writeText(text);
@@ -21,23 +20,19 @@
 </script>
 
 {#if crypto?.qrCodeImg && showQRCode}
-	<div
-		class="modal"
-		transition:fly={{ y: 350, delay: 0, duration: 300, easing: circInOut }}
-		on:click={() => (showQRCode = false)}
-	>
+	<div class="modal" transition:slide on:click={() => (showQRCode = false)}>
 		<img
 			class="qr-code"
 			src={crypto.qrCodeImg}
 			alt="Monero address served via QR Code"
-			width="24px"
-			height="24px"
+			width="256px"
+			height="256px"
 		/>
 	</div>
 {/if}
 
 <Tab _class="donate-tab">
-	<p slot="title">
+	<p slot="title" class="title">
 		<img src={img} class="logo" alt={`${title} logo`} width="24px" height="24px" />
 		{title}
 	</p>
@@ -63,53 +58,69 @@
 	</div>
 </Tab>
 
-<style>
+<style lang="scss">
+	.modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: var(--gray-transparentish);
+		opacity: 1;
+		backdrop-filter: blur(6px);
+		user-select: none;
+		z-index: 1;
+		cursor: crosshair;
+
+		> .qr-code {
+			position: fixed;
+			width: auto;
+			height: 40%;
+			image-rendering: pixelated;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			border-radius: 0.5rem;
+		}
+	}
+
 	:global(.donate-tab) {
 		min-height: 15rem;
-	}
 
-	.qr-code {
-		position: fixed;
-		width: auto;
-		height: 40%;
-		image-rendering: pixelated;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		border-radius: 0.5rem;
-	}
+		.title {
+			> .logo {
+				height: 1.2rem;
+			}
+		}
 
-	.address-container {
-		width: fit-content;
-	}
+		.donate-footer {
+			display: flex;
+			flex-direction: column;
+			padding: 0;
 
-	.address {
-		display: flex;
-		align-items: center;
-		margin-right: 0.25rem;
-		overflow-x: auto;
-		word-wrap: break-word;
-		white-space: pre-wrap;
-		word-break: break-word;
-	}
+			> .address-container {
+				width: fit-content;
 
-	.logo {
-		height: 1.2rem;
-	}
+				> .address {
+					display: flex;
+					align-items: center;
+					margin-right: 0.25rem;
+					overflow-x: auto;
+					word-wrap: break-word;
+					white-space: pre-wrap;
+					word-break: break-word;
+				}
+			}
 
-	.donate-footer {
-		display: flex;
-		flex-direction: column;
-		padding: 0;
-	}
+			> div {
+				display: flex;
+				flex-direction: row;
 
-	.donate-footer > div {
-		display: flex;
-		flex-direction: row;
-	}
-
-	.donate-footer > div > button {
-		padding: 0.5rem;
-		margin: 0 0.2rem;
+				> button {
+					padding: 0.5rem;
+					margin: 0 0.2rem;
+				}
+			}
+		}
 	}
 </style>

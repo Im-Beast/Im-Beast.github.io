@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import { fade } from "svelte/transition";
+	import { sineInOut } from "svelte/easing";
 	import Tab from "$lib/Tab.svelte";
 
 	interface RepoCache {
@@ -20,13 +21,18 @@
 	}
 
 	async function getRepos() {
-		const promises = [];
-		promises.push(fetch("https://api.github.com/users/Im-Beast/repos"));
+		const promises: Promise<Repo>[] = [];
+		promises.push(
+			fetch("https://api.github.com/users/Im-Beast/repos").then((response) => response.json()),
+		);
+
 		const orgs = await (await fetch("https://api.github.com/users/Im-Beast/orgs")).json();
+
 		for (const { url } of orgs) {
-			promises.push(fetch(`${url}/repos`));
+			promises.push(fetch(`${url}/repos`).then((response) => response.json()));
 		}
-		return (await Promise.all((await Promise.all(promises)).map((x) => x.json())))
+
+		return (await Promise.all(promises))
 			.flat()
 			.sort((a: Repo, b: Repo) => b.stargazers_count - a.stargazers_count) as Repo[];
 	}
@@ -35,7 +41,7 @@
 	let loaded = false;
 	let data: RepoCache = {
 		last: 0,
-		repos: []
+		repos: [],
 	};
 
 	const incrementPosition = () => {
@@ -95,13 +101,13 @@
 	>
 
 	{#if !loaded}
-		<div id="loading" in:fade={{ delay: 250 }}>
+		<div id="loading" in:fade={{ delay: 150, easing: sineInOut }}>
 			<h1>Loading projects{".".repeat(((curtime / 1000) % 3) + 1)}</h1>
 			<h3>Here's spinning puppy while you wait as spinning circles are boring</h3>
 			<p id="puppy">🐕</p>
 		</div>
 	{:else}
-		<div id="repos-container" in:fade={{ duration: 150 }}>
+		<div id="repos-container" in:fade={{ duration: 250, easing: sineInOut }}>
 			{#each currentRepos as repo}
 				<Tab _class="repo-card">
 					<p title="Repository name" slot="title">{repo.name}</p>
@@ -128,7 +134,29 @@
 	{/if}
 </section>
 
-<style>
+<style lang="scss">
+	#github-projects {
+		position: relative;
+
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-evenly;
+
+		width: 100%;
+		min-height: 16rem;
+	}
+
+	#repos-container {
+		width: inherit;
+		height: inherit;
+		display: inherit;
+
+		> :global(.repo-card) {
+			min-height: 15rem;
+		}
+	}
+
 	#go-left,
 	#go-right {
 		position: absolute;
@@ -142,16 +170,14 @@
 
 		outline: none;
 		border: none;
-	}
 
-	#go-left:hover,
-	#go-right:hover {
-		font-size: 1.75rem;
-	}
+		&:hover {
+			font-size: 1.75rem;
+		}
 
-	#go-left:active,
-	#go-right:active {
-		font-size: 1.5rem;
+		&:active {
+			font-size: 1.5rem;
+		}
 	}
 
 	#go-left {
@@ -184,27 +210,5 @@
 		to {
 			transform: rotate(360deg);
 		}
-	}
-
-	#github-projects {
-		position: relative;
-
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-evenly;
-
-		width: 100%;
-		min-height: 16rem;
-	}
-
-	#repos-container {
-		width: inherit;
-		height: inherit;
-		display: inherit;
-	}
-
-	:global(#repos-container > .repo-card) {
-		min-height: 15rem;
 	}
 </style>
