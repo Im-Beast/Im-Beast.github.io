@@ -35,7 +35,7 @@
 <header>
 	<img
 		class="avatar"
-		src="https://im-beast.rocks/images/mat.jpg"
+		src="https://avatars.githubusercontent.com/u/47059999?v=4"
 		height="128"
 		alt="Beast's avatar - Mat from Pat & Mat" />
 
