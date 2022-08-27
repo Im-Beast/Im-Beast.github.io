@@ -1,20 +1,56 @@
+<script>
+	import Tooltip from "./Tooltip.svelte";
+</script>
+
 <footer>
-	<p>
-		Website made by <a
-			target="_blank"
-			title="Source code of this website"
-			href="https://github.com/Im-Beast/Im-Beast.github.io/">Im-Beast</a
-		> with 💙
-	</p>
+	<span> Copyright © 2022 Im-Beast. Available under MIT License. </span>
+	<div class="anchor-right">
+		<Tooltip message={"Check source code\non GitHub"}>
+			<button>
+				<a href="https://github.com/Im-Beast/Im-Beast.github.io/" target="_blank">
+					<img src="/branding/github.svg" alt="Github logo" />
+				</a>
+			</button>
+		</Tooltip>
+	</div>
 </footer>
 
-<style>
+<style lang="scss">
 	footer {
+		position: relative;
+
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
-		font-size: 1.1rem;
-		font-weight: bold;
-		padding: 0.5rem;
+		align-items: center;
+		gap: 1rem;
+
+		background-color: var(--translucent-contrast-color);
+
+		margin-top: auto;
+		margin-bottom: 0;
+		padding: 1rem;
+		padding-right: 2rem;
+
+		max-width: 50rem;
+
+		@media only screen and (min-width: 900px) {
+			border-radius: 1rem 1rem 0 0;
+		}
+
+		> .anchor-right {
+			position: absolute;
+			right: 0.5rem;
+			border-radius: 1rem;
+
+			.tooltip-wrapper button {
+				padding: 0.25rem;
+
+				> a > img {
+					display: flex;
+					height: 1.5rem;
+				}
+			}
+		}
 	}
 </style>

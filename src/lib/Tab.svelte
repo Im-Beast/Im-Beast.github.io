@@ -1,83 +1,57 @@
-<script lang="ts">
-	export let _class: string;
-</script>
-
-<div class="tab {_class}">
-	<h2 class="tab-title">
+<section class="repository">
+	<h1 class="title">
 		<slot name="title" />
-	</h2>
-	<p class="tab-description">
+	</h1>
+	<hr />
+	<p class="description">
 		<slot name="description" />
 	</p>
-	<div class="tab-footer">
-		<slot name="footer" />
+	<div class="bottom">
+		<slot name="bottom" />
 	</div>
-</div>
+</section>
 
-<style>
-	.tab {
+<style lang="scss">
+	.repository {
 		display: flex;
 		flex-direction: column;
 
-		margin: 0.5rem 0.25rem;
-		padding: 0.5rem;
+		user-select: none;
 
-		height: 100%;
-		width: 100%;
-		flex-wrap: nowrap;
+		border-radius: 1rem;
 
-		border-radius: 0.5rem;
-		border-right: 3px solid var(--gray-dark);
+		background-color: var(--less-translucent-contrast-color);
+		scrollbar-width: none;
 
-		color: white;
-		background-color: var(--gray-darker);
-	}
-
-	.tab-title {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: start;
-
-		margin: 0.1rem;
-		padding: 0.25rem 0 0.75rem 0rem;
-
-		border-bottom: 2px solid var(--gray-dark);
-
-		font-size: 1.3rem;
-
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	.tab-description {
-		height: 100%;
-
-		padding: 0.25rem;
-	}
-
-	.tab-footer {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-evenly;
-
-		width: 100%;
-		height: 100%;
+		scroll-snap-align: start;
 
 		padding: 0.5rem;
 
-		text-align: center;
+		> .title {
+			font-size: 1.5rem;
+		}
 
-		margin-top: auto;
+		> hr {
+			margin: 0 0 0.5rem 0;
+		}
 
-		border-radius: 0.5rem;
+		> .description {
+			margin-bottom: 0.25rem;
+		}
 
-		background-color: var(--gray-lighter);
-	}
+		> .bottom {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-evenly;
 
-	:global(.tab-footer > div) {
-		width: 100%;
-		height: 100%;
-		all: inherit;
+			border-radius: 1rem;
+
+			margin-top: auto;
+
+			padding: 0.5rem;
+			background-color: var(--translucent-background-color);
+
+			z-index: 1;
+		}
 	}
 </style>
