@@ -1,8 +1,7 @@
-<script>
-	import NavBar from "$lib/NavBar.svelte";
-
+<script lang="ts">
+	import Footer from "$lib/Footer.svelte";
 	import "../app.scss";
 </script>
 
-<NavBar />
 <slot />
+<Footer />

@@ -2,19 +2,14 @@
 @import "@fontsource/overpass-mono";
 
 :root {
-	--dark-text-color: #ffffff;
-	--dark-background-color: #131313;
-	--dark-lighter-background-color: #232323;
-	--dark-contrast-color: #ffffff;
-	--dark-translucent-contrast-color: #ffffff10;
-	--dark-less-translucent-contrast-color: #ffffff20;
-
-	--contrast-color: var(--dark-contrast-color);
-	--translucent-contrast-color: var(--dark-translucent-contrast-color);
-	--text-color: var(--dark-text-color);
-	--background-color: var(--dark-background-color);
-	--lighter-background-color: var(--dark-lighter-background-color);
-	--less-translucent-contrast-color: var(--dark-less-translucent-contrast-color);
+	--contrast-color: #ffffff;
+	--translucent-contrast-color: #ffffff10;
+	--less-translucent-contrast-color: #ffffff20;
+	--even-less-translucent-contrast-color: #ffffff40;
+	--text-color: #ffffff;
+	--background-color: #131313;
+	--translucent-background-color: #13131340;
+	--lighter-background-color: #232323;
 
 	--primary-color: #60a5fa;
 	--secondary-color: #4c84c9;
@@ -44,18 +39,26 @@
 	text-decoration: none;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 body {
+	margin-inline: auto;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	align-items: stretch;
+	justify-content: center;
 
-	width: 100vw;
+	width: fit-content;
 	height: 100vh;
 
 	font-family: "Overpass", sans-serif;
 
 	background-color: var(--background-color);
 	color: var(--text-color);
+
+	transition: background-color 1s ease-out, color 0.5s ease-out;
 }
 
 code {
@@ -68,7 +71,13 @@ h1 {
 
 hr {
 	border-bottom: 3px solid var(--translucent-contrast-color);
+	border-radius: 0.5rem;
 	margin: 0.5rem 0;
+}
+
+.vertical-rule {
+	border-right: 3px solid var(--translucent-contrast-color);
+	border-radius: 2px;
 }
 
 a {
@@ -81,4 +90,85 @@ a {
 	&:active {
 		color: var(--tertiary-color);
 	}
+}
+
+button:not(.no-style) {
+	position: relative;
+	padding: 0.5rem;
+
+	color: var(--text-color);
+	background-color: var(--translucent-contrast-color);
+
+	border-radius: 0.7rem;
+
+	border: 2px solid transparent;
+
+	transition: background-color 0.125s ease-in;
+
+	&.data-toggled {
+		border-color: var(--even-less-translucent-contrast-color);
+
+		&.accent {
+			border-color: var(--accent);
+		}
+
+		transition: border-color 0.25s ease-in-out;
+	}
+
+	&:hover {
+		background-color: var(--less-translucent-contrast-color);
+	}
+
+	&:active {
+		&::before {
+			position: absolute;
+			content: "";
+			top: 50%;
+			left: 50%;
+
+			transform: translate(-50%, -50%);
+
+			background-color: var(--less-translucent-contrast-color);
+			border-radius: 0.6rem;
+
+			@keyframes popup {
+				from {
+					width: 0;
+					height: 0;
+					opacity: 0;
+				}
+
+				to {
+					width: 100%;
+					height: 100%;
+					opacity: 1;
+				}
+			}
+
+			animation: popup 0.15s ease-out forwards;
+		}
+	}
+}
+
+::-webkit-scrollbar {
+	width: 0.5rem;
+	height: 0.5rem;
+
+	background-color: var(--background-color);
+
+	border-radius: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--translucent-contrast-color);
+
+	border-radius: 0.5rem;
+}
+
+::-webkit-scrollbar-corner {
+	display: none;
+}
+
+html[dark-theme="false"] .monochrome {
+	filter: invert(100%);
 }
