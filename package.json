@@ -1,6 +1,15 @@
 {
 	"name": "github-page",
-	"version": "0.0.1",
+	"version": "4.0.0",
+	"license": "MIT",
+	"author": {
+		"name": "Im-Beast",
+		"url": "https://github.com/Im-Beast"
+	},
+	"repository": {
+		"type": "github",
+		"url": "https://github.com/Im-Beast/Im-Beast.github.io"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
