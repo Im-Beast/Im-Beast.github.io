@@ -99,6 +99,8 @@ button:not(.no-style) {
 	color: var(--text-color);
 	background-color: var(--translucent-contrast-color);
 
+	cursor: pointer;
+
 	border-radius: 0.7rem;
 
 	border: 2px solid transparent;
