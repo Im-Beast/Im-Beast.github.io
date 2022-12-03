@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@fontsource/overpass': ^4.5.8
   '@fontsource/overpass-mono': ^4.5.8
-  '@sveltejs/adapter-static': 1.0.0-next.39
+  '@sveltejs/adapter-static': next
   '@sveltejs/kit': 1.0.0-next.571
   '@typescript-eslint/eslint-plugin': ^5.27.0
   '@typescript-eslint/parser': ^5.27.0
@@ -23,7 +23,7 @@ specifiers:
 dependencies:
   '@fontsource/overpass': 4.5.8
   '@fontsource/overpass-mono': 4.5.8
-  '@sveltejs/adapter-static': 1.0.0-next.39
+  '@sveltejs/adapter-static': 1.0.0-next.48
   sass: 1.53.0
 
 devDependencies:
@@ -143,8 +143,8 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
-  /@sveltejs/adapter-static/1.0.0-next.39:
-    resolution: {integrity: sha512-EeD39H6iEe0UEKnKxLFTZFZpi/FcX5xfbAvsMQ+B09aDZccpQmkJBSIo+4kq1JsQGSjwi/+J3aE9bR67R6CIyQ==}
+  /@sveltejs/adapter-static/1.0.0-next.48:
+    resolution: {integrity: sha512-Z5Z+QZOav6D0KDeU3ReksGERJg/sX1k5OKWWXyQ11OwGErEEwSXHYRUyjaBmZEPeGzpVVGwwMUK8YWJlG/MKeA==}
     dev: false
 
   /@sveltejs/kit/1.0.0-next.571_svelte@3.49.0+vite@3.2.4:
