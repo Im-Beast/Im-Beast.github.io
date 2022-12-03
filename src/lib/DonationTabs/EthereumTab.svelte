@@ -2,30 +2,29 @@
 	import Tab from "$lib/Tab.svelte";
 	import Tooltip from "$lib/Tooltip.svelte";
 
-	const MONERO_ADDRESS =
-		"89BoVWjqdGVe68wdxbYurXR8sXaEb96eWKYRPxdT6wSCfZYK6XSHoj5ZRXQLtd7GzL2B2PD7Lb7GSKupkXMWjQVFAEb1CK8";
+	const ETHEREUM_ADDRESS = "0xCf011612a84bB7b1B8b921164090C48deF7F1eFa";
 </script>
 
 <Tab>
 	<svelte:fragment slot="title">
-		<img class="title-logo" src="/branding/monero.svg" alt="Monero logo" />
-		Monero
+		<img class="title-logo" src="/branding/ethereum.svg" alt="Ethereum logo" />
+		Ethereum
 	</svelte:fragment>
 
 	<svelte:fragment slot="description">
-		I'm not a huge fan of crypto, but this one isn't that bad
+		I know nothing about it
 		<br />
-		<img class="qr-code" src="/personal/monero-donate-qr.png" alt="QR Code holding Monero address of Im-Beast" />
+		<img class="qr-code" src="/personal/ethereum-donate-qr.png" alt="QR Code holding Ethereum address of Im-Beast" />
 	</svelte:fragment>
 
 	<svelte:fragment slot="bottom">
-		<code class="address"> {MONERO_ADDRESS} </code>
+		<code class="address"> {ETHEREUM_ADDRESS} </code>
 
 		<Tooltip message="Copy address">
 			<button
 				class="copy-address"
 				on:click={() => {
-					navigator.clipboard.writeText(MONERO_ADDRESS);
+					navigator.clipboard.writeText(ETHEREUM_ADDRESS);
 				}}>
 				📋
 			</button>
@@ -36,6 +35,7 @@
 <style lang="scss">
 	.title-logo {
 		height: 1.25rem;
+		width: 1.25rem;
 		background-color: var(--contrast-color);
 		padding: 1px;
 		border-radius: 100%;
