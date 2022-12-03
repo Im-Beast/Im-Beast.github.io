@@ -1,6 +1,6 @@
 # 👱🏻‍♂️ Personal website
 
-You can find it deployed [here](https://im-beast.rocks) and
+You can find it deployed [here](https://im-beast.com) and
 [there](https://im-beast.github.io).
 
 This repository contains source code and
