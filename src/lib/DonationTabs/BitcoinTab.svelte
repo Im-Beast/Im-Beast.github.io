@@ -47,6 +47,8 @@
 		margin-top: 0.25rem;
 		margin-bottom: 0.5rem;
 
+		image-rendering: pixelated;
+
 		height: 10rem;
 
 		border-radius: 0.7rem;
