@@ -52,5 +52,17 @@
 		user-select: none;
 		pointer-events: none;
 		z-index: -1;
+
+		animation: fadeIn 3s ease-in;
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+
+		to {
+			opacity: 1;
+		}
 	}
 </style>
