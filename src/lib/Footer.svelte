@@ -1,13 +1,15 @@
-<script>
+<script lang="ts">
 	import Tooltip from "./Tooltip.svelte";
+
+	let githubAnchor: HTMLAnchorElement;
 </script>
 
 <footer>
 	<span> Copyright © 2022 Im-Beast. Available under MIT License. </span>
 	<div class="anchor-right">
 		<Tooltip message={"Check source code\non GitHub"}>
-			<button>
-				<a href="https://github.com/Im-Beast/Im-Beast.github.io/" target="_blank">
+			<button on:click={() => githubAnchor.click()}>
+				<a bind:this={githubAnchor} href="https://github.com/Im-Beast/Im-Beast.github.io/" target="_blank">
 					<img src="/branding/github.svg" alt="Github logo" />
 				</a>
 			</button>
