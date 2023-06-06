@@ -1,180 +1,136 @@
 <script lang="ts">
-	import Repositories from "$lib/Repositories.svelte";
-	import Donations from "$lib/Donations.svelte";
-	import Tooltip from "$lib/Tooltip.svelte";
-	import { onMount } from "svelte";
+	import Modal from "@components/Modal.svelte";
+	import Donate from "@components/tabs/Donate.svelte";
+	import Projects from "@components/tabs/Projects.svelte";
 
-	type Components = {
-		[key in Tabs]: typeof Repositories;
+	const age = Math.floor(
+		(Date.now() - new Date("05/17/2005").valueOf()) / (1000 * 60 * 60 * 24 * 365.25),
+	);
+
+	const tabs = {
+		projects: Projects,
+		donates: Donate,
 	};
 
-	const components: Components = {
-		Repositories,
-		Donations,
-	};
+	let currentTab: keyof typeof tabs = "projects";
 
-	enum Tabs {
-		Repositories = "Repositories",
-		Donations = "Donations",
-	}
-
-	let currentTab: Tabs = Tabs.Repositories;
-
-	function toggleTab(element: EventTarget | null, newTab: Tabs): void {
-		if (element instanceof HTMLElement) {
-			for (const node of Array.from(document.querySelectorAll(".tab.data-toggled"))) {
-				node.classList.remove("data-toggled");
-			}
-			element.classList.add("data-toggled");
-
-			currentTab = newTab;
-		}
-	}
+	let discordModalOpened = false;
 </script>
 
-<header>
+<header
+	class="flex flex-col items-center justify-center sm:flex-row bg-dark-400 border-2 border-dark-900 p-3 max-w-200 rounded-b-lg"
+>
 	<img
-		class="avatar"
-		src="https://avatars.githubusercontent.com/u/47059999?v=4"
-		height="128"
-		alt="Beast's avatar - Mat from Pat & Mat" />
+		height="10rem"
+		width="auto"
+		class="h-45 rounded-lg mr-5 border-2 border-dark-500"
+		src="avatar.jpg"
+		alt="Beast's avatar – Mat from Czech cartoon Pat & Mat"
+	/>
+	<div class="flex gap-2 flex-col">
+		<section class="h-full">
+			<!-- TODO: little guy climbing in and replacing "Im-Beast" with "I'm Beast" -->
+			<h1 class="text-2xl">Hello, Im-Beast</h1>
+			<hr />
+			<p class="leading-tight">
+				I am {age} years old high school student who's really enjoying programming.
+				<br />
+				I am learning it for over {age - 10} years and I am still passionate about it.
+				<br />
+				In my free time apart from coding I like playing games
+				<span class="i-solar-gamepad-bold-duotone bg-green-300" />
+				and watching serials and movies
+				<span class="i-solar-tv-bold-duotone text-blue-300" />
+				.
+			</p>
+		</section>
 
-	<section class="introduction">
-		<h1>Hi, I'm Beast</h1>
+		<address class="mt-auto ml-auto w-max bg-dark-50 border-2 border-dark-100 rounded-lg p-1">
+			<a
+				title="Github"
+				href="https://github.com/Im-Beast"
+				class="navigation-link hover:bg-#151b21! active:bg-#353b41!"
+				target="_blank"
+				rel="noreferrer"
+			>
+				<span class="i-mingcute-github-fill" />
+			</a>
+			<a
+				title="Twitter"
+				href="https://twitter.com/1m_Beast"
+				class="navigation-link hover:bg-#26a7de! active:bg-#56d7fe!"
+				target="_blank"
+				rel="noreferrer"
+			>
+				<span class="i-mingcute-twitter-fill" />
+			</a>
+			<!-- TODO: Make discord username contact better somehow-->
+			{#if discordModalOpened}
+				<Modal on:click={() => (discordModalOpened = false)}>
+					<p class="font-not-italic">My username on discord is <b>Beast#6968</b></p>
+				</Modal>
+			{/if}
 
-		<hr />
-
-		<p>
-			I am 17 years old high school student who's really enjoying programming.
-			<br />
-			I've been learning it for over 7 years and still have lots of passion around it.
-			<br />
-			I'm coding in my free time apart from watching serials and movies
-
-			<Tooltip message={"TMDB profile\nIm-Beast"}>
-				<a href="https://www.themoviedb.org/u/Im-Beast" target="_blank">🍿</a>
-			</Tooltip>.
-		</p>
-
-		<address>
-			<Tooltip message={"Github profile\nIm-Beast"}>
-				<a href="https://github.com/Im-Beast" target="_blank">
-					<img class="monochrome" src="/branding/github.svg" alt="Github logo" />
-				</a>
-			</Tooltip>
-
-			<Tooltip message={"Discord\nBeast#6968"}>
-				<img class="monochrome" src="/branding/discord.svg" alt="Discord logo" />
-			</Tooltip>
-
-			<Tooltip message={"Twitter profile\n1m_Beast"}>
-				<a href="https://twitter.com/1m_Beast" target="_blank">
-					<img class="monochrome" src="/branding/twitter.svg" alt="Twitter logo" />
-				</a>
-			</Tooltip>
-
-			<Tooltip message={"Steam profile\nIm_Beast"}>
-				<a href="https://steamcommunity.com/id/im_beast" target="_blank">
-					<img class="monochrome" src="/branding/steam.svg" alt="Steam logo" />
-				</a>
-			</Tooltip>
+			<button
+				on:click={() => (discordModalOpened = true)}
+				title="Discord"
+				class="navigation-link py-0.4! hover:bg-#5662f6! active:bg-#7682f6!"
+			>
+				<span class="i-mingcute-discord-fill" />
+			</button>
+			<a
+				title="Steam"
+				href="https://steamcommunity.com/id/im_beast"
+				class="navigation-link hover:bg-gradient-to-br hover:from-#06183a hover:to-#145d8f active:from-#162a2a active:to-#246d9f"
+				target="_blank"
+				rel="noreferrer"
+			>
+				<span class="i-fa6-brands-steam-symbol" />
+			</a>
+			<a
+				title="TMDB"
+				href="https://www.themoviedb.org/u/Im-Beast"
+				class="navigation-link hover:bg-gradient-to-l hover:from-#01b4e4 hover:to-#90cea1 active:from-#21d4f4 active:to-#b0eec1"
+				target="_blank"
+				rel="noreferrer"
+			>
+				<span class="i-solar-tv-bold" />
+			</a>
 		</address>
-	</section>
+	</div>
 </header>
 
-<main>
-	<section class="tab-selector">
+<main class="bg-dark-400 border-2 border-dark-900 my-1 sm:my-auto w-full max-w-200 rounded-lg p-2">
+	<nav>
 		<button
-			class="tab accent data-toggled"
-			style:--accent="#96623980"
-			on:click={({ target }) => toggleTab(target, Tabs.Repositories)}>📦 Repositories</button>
-		<button class="tab accent" style:--accent="#e63b7d80" on:click={({ target }) => toggleTab(target, Tabs.Donations)}
-			>💗 Donations</button>
-	</section>
+			on:click={() => (currentTab = "projects")}
+			class="group tab-button-amber"
+			class:border-amber-600!={currentTab === "projects"}
+		>
+			<span
+				class="tab-icon-amber i-solar-box-outline group-hover:i-solar-box-bold"
+				class:i-solar-box-bold!={currentTab === "projects"}
+			/>
+
+			Projects
+		</button>
+
+		<button
+			on:click={() => (currentTab = "donates")}
+			class="group tab-button-pink"
+			class:border-pink-600!={currentTab === "donates"}
+		>
+			<span
+				class="tab-icon-pink i-solar-heart-outline group-hover:i-solar-heart-bold"
+				class:i-solar-heart-bold!={currentTab === "donates"}
+			/>
+			Donate
+		</button>
+
+		<!-- TODO: Experience tab -->
+	</nav>
 
 	<hr />
 
-	<svelte:component this={components[currentTab]} />
+	<svelte:component this={tabs[currentTab]} />
 </main>
-
-<style lang="scss">
-	header {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-evenly;
-		align-items: center;
-		gap: 1rem;
-
-		background-color: var(--translucent-contrast-color);
-
-		padding: 1rem;
-
-		max-width: 50rem;
-
-		@media only screen and (max-width: 900px) {
-			flex-direction: column;
-		}
-
-		@media only screen and (min-width: 900px) {
-			border-radius: 0 0 1rem 1rem;
-
-			> .introduction > p {
-				max-width: 60vw;
-			}
-		}
-
-		> .avatar {
-			border-radius: 40px;
-			height: 100%;
-			max-height: 7rem;
-		}
-
-		> .introduction {
-			> address {
-				display: flex;
-				flex-direction: row;
-				flex: 1;
-
-				align-items: center;
-
-				margin-top: 0.5rem;
-				margin-left: auto;
-				padding: 0.3rem 0.6rem;
-				gap: 0.5rem;
-
-				width: min-content;
-				height: 2rem;
-
-				border-radius: 1rem;
-				background-color: var(--translucent-contrast-color);
-
-				img {
-					height: 100%;
-					transition: filter 0.15s;
-
-					&:hover {
-						filter: drop-shadow(0 0 3px var(--primary-color));
-					}
-
-					&:active {
-						filter: drop-shadow(0 0 3px var(--tertiary-color));
-					}
-				}
-			}
-		}
-	}
-
-	main {
-		background-color: var(--translucent-contrast-color);
-
-		margin: 1rem 0;
-		padding: 0.5rem;
-
-		width: 100vw;
-		max-width: 50rem;
-
-		@media only screen and (min-width: 900px) {
-			border-radius: 1rem;
-		}
-	}
-</style>

@@ -1,46 +1,49 @@
 {
-	"name": "github-page",
-	"version": "4.0.0",
-	"license": "MIT",
-	"author": {
-		"name": "Im-Beast",
-		"url": "https://github.com/Im-Beast"
-	},
-	"repository": {
-		"type": "github",
-		"url": "https://github.com/Im-Beast/Im-Beast.github.io"
-	},
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"package": "svelte-kit package",
-		"preview": "vite preview",
-		"check": "svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --check --plugin-search-dir=. . && eslint .",
-		"format": "prettier --write --plugin-search-dir=. ."
-	},
-	"devDependencies": {
-		"@sveltejs/kit": "1.0.0",
-		"@typescript-eslint/eslint-plugin": "^5.27.0",
-		"@typescript-eslint/parser": "^5.27.0",
-		"eslint": "^8.16.0",
-		"eslint-config-prettier": "^8.3.0",
-		"eslint-plugin-svelte3": "^4.0.0",
-		"prettier": "^2.6.2",
-		"prettier-plugin-svelte": "^2.7.0",
-		"svelte": "^3.58.0",
-		"svelte-check": "^2.7.1",
-		"svelte-preprocess": "^4.10.6",
-		"tslib": "^2.3.1",
-		"typescript": "^4.7.4",
-		"vite": "^4.2.1"
-	},
-	"type": "module",
-	"dependencies": {
-		"@fontsource/overpass": "^4.5.8",
-		"@fontsource/overpass-mono": "^4.5.8",
-		"@sveltejs/adapter-static": "next",
-		"sass": "^1.53.0"
-	}
+  "name": "github-page",
+  "version": "5.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Im-Beast",
+    "url": "https://github.com/Im-Beast"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/Im-Beast/Im-Beast.github.io"
+  },
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "lint": "prettier --plugin-search-dir . --check . && eslint .",
+    "format": "prettier --plugin-search-dir . --write ."
+  },
+  "devDependencies": {
+    "@iconify-json/fa6-brands": "^1.1.11",
+    "@iconify-json/mingcute": "^1.1.6",
+    "@iconify-json/solar": "^1.1.1",
+    "@iconify-json/tabler": "^1.1.74",
+    "@sveltejs/adapter-static": "^2.0.2",
+    "@sveltejs/kit": "^1.5.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "@unocss/extractor-svelte": "^0.51.12",
+    "@unocss/preset-icons": "^0.51.12",
+    "@unocss/reset": "^0.51.12",
+    "@unocss/transformer-directives": "^0.51.12",
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-svelte": "^2.26.0",
+    "prettier": "^2.8.0",
+    "prettier-plugin-svelte": "^2.8.1",
+    "svelte": "^3.54.0",
+    "svelte-check": "^3.0.1",
+    "tslib": "^2.4.1",
+    "typescript": "^5.0.0",
+    "unocss": "^0.51.12",
+    "vite": "^4.3.0"
+  }
 }

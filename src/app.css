@@ -1,0 +1,35 @@
+:root {
+	--at-apply: "text-4.5";
+}
+
+button:focus-visible,
+a:focus-visible {
+	--at-apply: "outline outline-offset-2 outline-2 outline-pink-400";
+}
+
+body {
+	--at-apply: "flex flex-col items-center w-full min-h-100vh color-white bg-dark-800";
+}
+
+hr {
+	--at-apply: "border-b-2 border-dark-900 rounded-xl my-2";
+}
+
+::-webkit-scrollbar {
+	--at-apply: "w-1.5 h-1.5";
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	--at-apply: "bg-dark-800 rounded-lg";
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	--at-apply: "bg-dark-100 rounded-lg";
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	--at-apply: "bg-dark-50";
+}
