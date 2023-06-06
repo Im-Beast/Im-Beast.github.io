@@ -27,9 +27,12 @@ jobs:
   steps:
    - name: Checkout
      uses: actions/checkout@v3
-   - name: Install dependencies and build website
+   - name: Install pnpm
      uses: pnpm/action-setup@v2
-     run: pnpm i && pnpm build
+   - name: Install dependencies
+     run: pnpm i
+   - name: Build website
+     run: pnpm build
    - name: Setup Pages
      uses: actions/configure-pages@v3
    - name: Upload artifact
