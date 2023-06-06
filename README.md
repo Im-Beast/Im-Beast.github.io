@@ -1,32 +1,30 @@
-# 👱🏻‍♂️ Personal website
+# 👱🏻‍♂️ My personal website
 
-You can find it deployed [here](https://im-beast.com) and
-[there](https://im-beast.github.io).
+It is deployed via Github Pages, it's available on
+[im-beast.com](https://im-beast.com/) and on
+[im-beast.github.io](https://im-beast.github.io).
 
-This repository contains source code and
-[github pages deployment](https://github.com/Im-Beast/Im-Beast.github.io/tree/gh-pages)
-of my personal website.
-
-On each commit to the repository project is automatically built and deployed
-using Github Actions via `JamesIves/github-pages-deploy-action`.
+Each push to this repository
+triggers [Github Actions workflow](./.github/workflows/deploy.yml) which builds
+and publishes the website.
 
 ## 🏭 Tech stack
 
-This website has been created using [SvelteKit](https://kit.svelte.dev/). It
-uses:
+This website has been made using:
 
-- 💖 SvelteKit
-- ⌨️ Typescript
-- 🎨 SCSS
+- [SvelteKit](https://kit.svelte.dev)
+- [TypeScript](https://www.typescriptlang.org/)
+- [UnoCSS](https://unocss.dev/)
+- [Iconify](https://iconify.design/)
+  - [Mingcute](https://www.mingcute.com/)
+  - [Solar](https://www.figma.com/community/file/1166831539721848736)
+  - [Tabler](https://tabler.io/icons)
+- [Vite](https://vitejs.dev/)
+- [Prettier](https://prettier.io/)
+- [ESLint](https://eslint.org/)
 
-## 🧰 Usage
+Huge thanks to creators of these packages (and their dependencies)!
 
-This project uses [PnPm](https://pnpm.io/) package manager.
-
-👷 Development: `pnpm run dev`
-
-👨🏻‍💼 Production: `pnpm run build`
-
-## 📝 License
+## 📝 Licensing
 
 This project is available under **MIT** License conditions.
