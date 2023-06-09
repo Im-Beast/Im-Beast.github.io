@@ -17,7 +17,7 @@
 {#if $zoomedImage}
 	<Modal on:click={unzoom}>
 		<img
-			class="cursor-auto! w-full! max-w-80! m-5! h-auto! {$zoomedImage.className}"
+			class="cursor-auto! block! w-10/12! m-5! h-auto! {$zoomedImage.className}"
 			src={$zoomedImage.src}
 			alt={$zoomedImage.alt}
 		/>

@@ -23,7 +23,7 @@
 			alt="QR Code"
 			height="0"
 			width="0"
-			class="image-pixelated mx-auto rounded-lg mt-2 mb-4"
+			class="image-pixelated hidden mx-auto rounded-lg mt-2 mb-4"
 		/>
 	</svelte:fragment>
 
