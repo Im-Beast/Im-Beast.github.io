@@ -7,6 +7,7 @@
 </script>
 
 <Card>
+	<!-- TODO: Language -->
 	<slot slot="title" name="title" />
 	<slot slot="description" name="description" />
 	<svelte:fragment slot="footer">

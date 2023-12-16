@@ -1,16 +1,33 @@
+<script context="module" lang="ts">
+	import type { ComponentType } from "svelte";
+
+	enum Tab {
+		Projects,
+		Donate,
+		Experience,
+	}
+
+	type Tabs = {
+		[key in Tab]: ComponentType;
+	};
+</script>
+
 <script lang="ts">
 	import Modal from "@components/Modal.svelte";
+	import TabButton from "@components/TabButton.svelte";
 	import Donate from "@components/tabs/Donate.svelte";
 	import Projects from "@components/tabs/Projects.svelte";
+	import Icon from "@iconify/svelte";
 
-	const age = Math.floor((Date.now() - new Date("05/17/2005").valueOf()) / (1000 * 60 * 60 * 24 * 365.25));
+	const age = Math.floor((Date.now() - new Date("05/17/2005").getTime()) / (1000 * 60 * 60 * 24 * 365.25));
 
-	const tabs = {
-		projects: Projects,
-		donates: Donate,
+	const tabs: Tabs = {
+		[Tab.Projects]: Projects,
+		[Tab.Donate]: Donate,
+		[Tab.Experience]: Modal, // TODO: experience tab
 	};
 
-	let currentTab: keyof typeof tabs = "projects";
+	let currentTab = Tab.Projects;
 
 	let discordModalOpened = false;
 </script>
@@ -104,33 +121,23 @@
 	class="flex flex-col justify-stretch bg-dark-400 border-2 border-dark-900 my-1 sm:my-auto w-full max-w-210 h-80 rounded-lg p-2"
 >
 	<nav>
-		<button
-			on:click={() => (currentTab = "projects")}
-			class="group tab-button-amber"
-			class:border-amber-600!={currentTab === "projects"}
-		>
-			<span
-				class="tab-icon-amber i-solar-box-outline group-hover:i-solar-box-bold"
-				class:i-solar-box-bold!={currentTab === "projects"}
-			/>
-			<!-- TODO: make it more tactile -->
-
+		<TabButton color="#f08040" selected={currentTab === Tab.Projects} on:click={() => (currentTab = Tab.Projects)}>
+			<Icon slot="base-icon" icon="solar:box-outline" />
+			<Icon slot="active-icon" icon="solar:box-bold" />
 			Projects
-		</button>
+		</TabButton>
 
-		<button
-			on:click={() => (currentTab = "donates")}
-			class="group tab-button-pink"
-			class:border-pink-600!={currentTab === "donates"}
-		>
-			<span
-				class="tab-icon-pink i-solar-heart-outline group-hover:i-solar-heart-bold"
-				class:i-solar-heart-bold!={currentTab === "donates"}
-			/>
+		<TabButton color="#ff4590" selected={currentTab === Tab.Donate} on:click={() => (currentTab = Tab.Donate)}>
+			<Icon slot="base-icon" icon="solar:heart-outline" />
+			<Icon slot="active-icon" icon="solar:heart-bold" />
 			Donate
-		</button>
+		</TabButton>
 
-		<!-- TODO: Experience tab -->
+		<TabButton color="#f0c040" selected={currentTab === Tab.Experience} on:click={() => (currentTab = Tab.Experience)}>
+			<Icon slot="base-icon" icon="solar:square-academic-cap-outline" />
+			<Icon slot="active-icon" icon="solar:square-academic-cap-bold" />
+			Experience
+		</TabButton>
 	</nav>
 
 	<hr />

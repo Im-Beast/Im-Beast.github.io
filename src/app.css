@@ -1,35 +1,85 @@
 :root {
+	--bg-0: #080808;
+	--bg-1: #161616;
+	--bg-2: #232323;
+	--bg-3: #2f2f2f;
+	--bg-4: #3a3a3a;
+	--bg-5: #444444;
+
+	--bg-color: var(--bg-1);
+	--text-color: #fcfcfc;
+
 	--at-apply: "text-4.5";
+
+	font-size: 20px;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	justify-items: center;
+	align-items: center;
+
+	min-height: 100vh;
+
+	background-color: var(--bg-color);
+	color: var(--text-color);
+}
+
+hr {
+	border-bottom: 2px solid var(--bg-2);
+	border-radius: 1rem;
+	margin-block: 0.5rem;
 }
 
 button:focus-visible,
 a:focus-visible {
-	--at-apply: "outline outline-offset-2 outline-2 outline-pink-400";
+	outline: 2px solid #ff80aa;
+	outline-offset: 2px;
 }
 
-body {
-	--at-apply: "flex flex-col items-center w-full min-h-100vh color-white bg-dark-800";
+.button {
+	margin-block: 0.25rem;
+	padding: 0.2rem 0.5rem;
+
+	border-radius: 0.4rem;
+	text-align: center;
+
+	background-color: var(--bg-3);
 }
 
-hr {
-	--at-apply: "border-b-2 border-dark-900 rounded-xl my-2";
+.button:hover {
+	background-color: var(--bg-4);
+}
+
+.button:active {
+	background-color: var(--bg-5);
+}
+
+.iconify {
+	display: inline-block;
+	vertical-align: -0.25em;
+	width: 1.25em;
+	height: 1.2em;
 }
 
 ::-webkit-scrollbar {
-	--at-apply: "w-1.5 h-1.5";
+	width: 0.25rem;
+	height: 0.25rem;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-	--at-apply: "bg-dark-800 rounded-lg";
+	background-color: var(--bg-2);
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	--at-apply: "bg-dark-100 rounded-lg";
+	background-color: var(--bg-4);
+	border-radius: 0.5rem;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-	--at-apply: "bg-dark-50";
+	background-color: var(--bg-5);
 }
