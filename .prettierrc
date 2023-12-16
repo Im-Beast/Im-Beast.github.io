@@ -2,7 +2,7 @@
   "semi": true,
   "useTabs": true,
   "tabWidth": 1,
-  "printWidth": 100,
+  "printWidth": 120,
   "singleQuote": false,
   "arrowParens": "always",
   "trailingComma": "all",
@@ -10,5 +10,6 @@
   "bracketSameLine": false,
   "pluginSearchDirs": ["."],
   "plugins": ["prettier-plugin-svelte"],
-  "overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }]
+  "overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }],
+  "svelteAllowShorthand": true
 }
