@@ -54,10 +54,7 @@
 		class="z-1 absolute top-1/2 -translate-y-1/2 opacity-0 hover:opacity-100 transition-opacity duration-250 h-1/2 w-20"
 		class:hidden={!$visibleLeft}
 	>
-		<button
-			on:click={() => changePage(-1)}
-			class="absolute left-2 top-1/2 -translate-y-1/2 button p-1! bg-opacity-10"
-		>
+		<button on:click={() => changePage(-1)} class="absolute left-2 top-1/2 -translate-y-1/2 button p-1! bg-opacity-10">
 			<span class="i-mingcute-arrow-left-fill text-white text-xl" />
 		</button>
 	</div>
@@ -66,10 +63,7 @@
 		class="z-1 absolute top-1/2 right-0 -translate-y-1/2 opacity-0 hover:opacity-100 transition-opacity duration-250 h-1/2 w-20"
 		class:hidden={!$visibleRight}
 	>
-		<button
-			on:click={() => changePage(1)}
-			class="absolute right-2 top-1/2 -translate-y-1/2 button p-1! bg-opacity-10"
-		>
+		<button on:click={() => changePage(1)} class="absolute right-2 top-1/2 -translate-y-1/2 button p-1! bg-opacity-10">
 			<span class="i-mingcute-arrow-right-fill text-white text-xl" />
 		</button>
 	</div>
@@ -78,7 +72,7 @@
 		bind:this={pagedElement}
 		on:change={() => ($scrollLeft = 0)}
 		on:scroll={updateButtonVisibility}
-		class="relative snap-mandatory snap-x flex w-full overflow-x-scroll no-scrollbar transition-all"
+		class="relative snap-mandatory snap-x flex w-full h-full overflow-x-scroll no-scrollbar transition-all"
 	>
 		<slot />
 	</section>

@@ -3,9 +3,7 @@
 	import Donate from "@components/tabs/Donate.svelte";
 	import Projects from "@components/tabs/Projects.svelte";
 
-	const age = Math.floor(
-		(Date.now() - new Date("05/17/2005").valueOf()) / (1000 * 60 * 60 * 24 * 365.25),
-	);
+	const age = Math.floor((Date.now() - new Date("05/17/2005").valueOf()) / (1000 * 60 * 60 * 24 * 365.25));
 
 	const tabs = {
 		projects: Projects,
@@ -18,7 +16,7 @@
 </script>
 
 <header
-	class="flex flex-col items-center justify-center sm:flex-row bg-dark-400 border-2 border-dark-900 p-3 max-w-200 rounded-b-lg"
+	class="flex flex-col items-center justify-center sm:flex-row bg-dark-400 border-2 border-dark-900 p-3 max-w-210 rounded-b-lg"
 >
 	<img
 		height="10rem"
@@ -33,15 +31,17 @@
 			<h1 class="text-2xl">Hello, Im-Beast</h1>
 			<hr />
 			<p class="leading-tight">
-				I am {age} years old high school student who's really enjoying programming.
-				<br />
-				I am learning it for over {age - 10} years and I am still passionate about it.
-				<br />
+				I am {age} years old high school student who really enjoys programming. <br />
+				I started learning it about {age - 10} years ago and I still continue to do so! <br />
 				In my free time apart from coding I like playing games
 				<span class="i-solar-gamepad-bold-duotone bg-green-300" />
 				and watching serials and movies
 				<span class="i-solar-tv-bold-duotone text-blue-300" />
 				.
+				<!--
+					TODO: nice curly arrow when hovered over movies thingy to show my TMDB profile
+					or like the ding boom button click effect on the movie button
+				-->
 			</p>
 		</section>
 
@@ -100,7 +100,9 @@
 	</div>
 </header>
 
-<main class="bg-dark-400 border-2 border-dark-900 my-1 sm:my-auto w-full max-w-200 rounded-lg p-2">
+<main
+	class="flex flex-col justify-stretch bg-dark-400 border-2 border-dark-900 my-1 sm:my-auto w-full max-w-210 h-80 rounded-lg p-2"
+>
 	<nav>
 		<button
 			on:click={() => (currentTab = "projects")}
@@ -111,6 +113,7 @@
 				class="tab-icon-amber i-solar-box-outline group-hover:i-solar-box-bold"
 				class:i-solar-box-bold!={currentTab === "projects"}
 			/>
+			<!-- TODO: make it more tactile -->
 
 			Projects
 		</button>
