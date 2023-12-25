@@ -1,91 +1,121 @@
 <script lang="ts">
-	import { writable } from "svelte/store";
-	import { tweened } from "svelte/motion";
-	import { cubicInOut } from "svelte/easing";
+	import TactileButton from "./TactileButton.svelte";
+	import Icon from "@iconify/svelte";
+
 	import { onMount } from "svelte";
+	import { writable } from "svelte/store";
 
-	let pagedElement: HTMLElement;
-
-	let step = 0;
-	let timeout: number | undefined;
-	let currentScrollLeft = 0;
-	const scrollLeft = tweened(0, {
-		delay: 0,
-		duration: 150,
-		easing: cubicInOut,
-	});
-
-	const visibleLeft = writable(false);
-	const visibleRight = writable(true);
-
-	function changePage(direction: number): void {
-		step = (pagedElement.scrollWidth + 20) / pagedElement.childElementCount;
-
-		currentScrollLeft += direction * step;
-
-		pagedElement.classList.remove("snap-x");
-		$scrollLeft = currentScrollLeft;
+	let elementsContainer: HTMLElement;
+	const elements = writable<Element[]>([]);
+	function refreshElements() {
+		$elements = Array.from(elementsContainer.children);
 	}
 
-	function updateButtonVisibility(): void {
-		if (!timeout) {
-			currentScrollLeft = pagedElement.scrollLeft;
-		}
-
-		$visibleLeft = currentScrollLeft > 0;
-		$visibleRight = currentScrollLeft < pagedElement.scrollWidth - pagedElement.clientWidth;
+	let elementsPerPage = 3;
+	function resizeContainer() {
+		const DESIRED_WIDTH = 300;
+		elementsPerPage = Math.max(1, Math.floor(elementsContainer.clientWidth / DESIRED_WIDTH));
 	}
 
 	onMount(() => {
-		scrollLeft.subscribe((value) => {
-			pagedElement.scrollLeft = value;
-
-			clearTimeout(timeout);
-			timeout = setTimeout(() => {
-				pagedElement.classList.add("snap-x");
-				timeout = undefined;
-			}, 250);
-		});
+		refreshElements();
+		resizeContainer();
+		window.addEventListener("resize", resizeContainer);
 	});
+
+	const cursor = writable(0);
+	const pages = writable(0);
+
+	$: {
+		$pages = Math.ceil($elements.length / elementsPerPage);
+		$cursor = Math.max(0, Math.min($cursor, $pages - 1));
+
+		const from = $cursor * elementsPerPage;
+		const to = from + elementsPerPage;
+		for (let i = 0; i < $elements.length; i++) {
+			const element = $elements[i];
+			element.classList.toggle("shown", i >= from && i < to);
+		}
+	}
 </script>
 
 <div class="relative w-full h-full">
-	<div
-		class="z-1 absolute top-1/2 -translate-y-1/2 opacity-0 hover:opacity-100 transition-opacity duration-250 h-1/2 w-20"
-		class:hidden={!$visibleLeft}
-	>
-		<button on:click={() => changePage(-1)} class="absolute left-2 top-1/2 -translate-y-1/2 button p-1! bg-opacity-10">
-			<span class="i-mingcute-arrow-left-fill text-white text-xl" />
-		</button>
-	</div>
-
-	<div
-		class="z-1 absolute top-1/2 right-0 -translate-y-1/2 opacity-0 hover:opacity-100 transition-opacity duration-250 h-1/2 w-20"
-		class:hidden={!$visibleRight}
-	>
-		<button on:click={() => changePage(1)} class="absolute right-2 top-1/2 -translate-y-1/2 button p-1! bg-opacity-10">
-			<span class="i-mingcute-arrow-right-fill text-white text-xl" />
-		</button>
-	</div>
-
-	<section
-		bind:this={pagedElement}
-		on:change={() => ($scrollLeft = 0)}
-		on:scroll={updateButtonVisibility}
-		class="relative snap-mandatory snap-x flex w-full h-full overflow-x-scroll no-scrollbar transition-all"
-	>
+	<section id="elements" bind:this={elementsContainer}>
 		<slot />
+	</section>
+
+	<section class="paginator-controls">
+		<TactileButton color="white" disabled={$cursor === 0} on:click={() => ($cursor -= 1)}>
+			<Icon slot="base-icon" icon="mingcute:large-arrow-left-line" />
+			<Icon slot="active-icon" icon="mingcute:large-arrow-left-fill" />
+		</TactileButton>
+
+		{#if $pages < 15}
+			<section id="page-dots">
+				{#each { length: $pages } as _, i}
+					<span class="page-dot" class:active={i === $cursor} on:click={() => ($cursor = i)} />
+				{/each}
+			</section>
+		{/if}
+
+		<TactileButton color="white" disabled={$cursor === $pages - 1} on:click={() => ($cursor += 1)}>
+			<Icon slot="base-icon" icon="mingcute:large-arrow-right-line" />
+			<Icon slot="active-icon" icon="mingcute:large-arrow-right-fill" />
+		</TactileButton>
 	</section>
 </div>
 
 <style>
-	.no-scrollbar {
-		/** Chrome/Safari */
-		&::-webkit-scrollbar {
+	#elements {
+		position: relative;
+		gap: 1rem;
+		display: flex;
+		width: 100%;
+		height: 100%;
+
+		& > .card {
+			transition: all 150ms ease-in-out;
 			display: none;
+			opacity: 0;
 		}
 
-		/** Firefox */
-		scrollbar-width: none;
+		& > .shown {
+			display: flex;
+			opacity: 1;
+		}
+	}
+
+	#page-dots {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+
+		& > .page-dot {
+			cursor: pointer;
+
+			display: inline-block;
+			background-color: var(--contrast-5);
+
+			width: 0.5rem;
+			height: 0.5rem;
+
+			border-radius: 100%;
+
+			transition: background-color, width, height, 175ms linear;
+
+			&.active {
+				background-color: var(--contrast-full);
+
+				width: 0.75rem;
+				height: 0.75rem;
+			}
+		}
+	}
+
+	.paginator-controls {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 </style>
