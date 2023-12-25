@@ -8,9 +8,37 @@
 		duration: 250,
 		delay: 0,
 	}}
-	class="flex select-none cursor-zoom-in cursor-zoom-out items-center justify-center z-10 fixed top-0 left-0 w-full h-full bg-dark-900 bg-opacity-60"
+	class="modal"
 >
-	<section class="cursor-auto p-2 bg-dark-400 border-2 border-dark-700 rounded-lg">
+	<section class="modal-box {$$restProps.class ?? ''}" style={$$restProps.style}>
 		<slot />
 	</section>
 </div>
+
+<style>
+	.modal {
+		position: fixed;
+		inset: 0;
+
+		z-index: 9999;
+
+		background-color: color-mix(in srgb, var(--bg-1) 70%, transparent);
+
+		& > .modal-box {
+			position: absolute;
+			inset: 50%;
+			transform: translate(-50%, -50%);
+
+			width: max-content;
+			max-width: 90vw;
+			height: max-content;
+
+			padding: 1rem;
+
+			border: 2px solid var(--bg-0);
+			border-radius: 0.5rem;
+
+			background-color: var(--bg-3);
+		}
+	}
+</style>
