@@ -1,53 +1,135 @@
 <script lang="ts">
 	import Card from "../Card.svelte";
-	import { zoomedImage } from "@stores/zoomedImage";
+	import Modal from "@components/Modal.svelte";
+	import IconLink from "@components/IconLink.svelte";
+	import Icon from "@iconify/svelte";
+	import TactileButton from "@components/TabButton.svelte";
 
-	export let qrCodeUrl: string;
+	export let icon: string;
+	export let qrCodeHref: string;
+	export let name: string;
 	export let address: string;
+	export let color: string;
 
 	async function copyToClipbard(text: string): Promise<void> {
 		await navigator.clipboard.writeText(text);
 	}
 
-	let image: HTMLImageElement;
+	let openedModal = false;
 </script>
 
-<Card>
-	<slot slot="title" name="title" />
-
-	<svelte:fragment slot="description">
-		<slot name="description" />
-		<img
-			bind:this={image}
-			src={qrCodeUrl}
-			alt="QR Code"
-			height="0"
-			width="0"
-			class="image-pixelated hidden mx-auto rounded-lg mt-2 mb-4"
-		/>
+<Card {color}>
+	<svelte:fragment slot="title">
+		<Icon {icon} {color} />
+		{name}
 	</svelte:fragment>
 
-	<svelte:fragment slot="footer">
-		<code class="w-max overflow-x-scroll">{address}</code>
+	<slot slot="description" />
 
-		<button
-			on:click={() => ($zoomedImage = image)}
-			class="group button p-1! ml-2 group hover:border-zinc-300 active:border-zinc-200"
-		>
-			<span
-				title="Show Adress QR Code"
-				class="i-mingcute-qrcode-2-line group-hover:i-mingcute-qrcode-2-fill text-zinc-300! active:text-zinc-200"
-			/>
-		</button>
-
-		<button
-			on:click={() => address && copyToClipbard(address)}
-			class="group button p-1! ml-2 hover:border-fuchsia-300 active:border-fuchsia-200"
-		>
-			<span
-				title="Copy address to clipboard"
-				class="i-solar-clipboard-heart-outline group-hover:i-solar-clipboard-heart-bold text-fuchsia-300! active:text-fuchsia-200!"
-			/>
-		</button>
-	</svelte:fragment>
+	<IconLink
+		slot="footer"
+		on:click={() => (openedModal = true)}
+		baseIcon="mingcute:pig-money-line"
+		activeIcon="mingcute:pig-money-fill"
+		{color}
+	>
+		Donate
+	</IconLink>
 </Card>
+
+{#if openedModal}
+	<Modal class="crypto-modal" style="--color: {color}" on:click={() => (openedModal = false)}>
+		<h1>Donate via <span class="logo"><Icon {icon} {color} /> {name}</span></h1>
+
+		<hr />
+
+		<h2>Address:</h2>
+		<div class="adresses">
+			<img src={qrCodeHref} height="10rem" alt="QR" />
+
+			<code class="address">
+				{address}
+
+				<TactileButton
+					title="Copy address to clipboard"
+					color="#ff4590"
+					class="copy-to-clipboard"
+					on:click={() => address && copyToClipbard(address)}
+				>
+					<Icon slot="base-icon" icon="solar:clipboard-heart-outline" />
+					<Icon slot="active-icon" icon="solar:clipboard-heart-bold" />
+				</TactileButton>
+			</code>
+		</div>
+	</Modal>
+{/if}
+
+<style>
+	:global(.crypto-modal) {
+		display: flex;
+		flex-direction: column;
+
+		border-color: var(--color) !important;
+
+		& > h1 {
+			/* prettier-ignore */
+			text-shadow:
+				0 1px 0 color-mix(in srgb, var(--color) 60%, var(--bg-full)),
+				0 2px 0 color-mix(in srgb, var(--color) 50%, var(--bg-full)),
+				0 3px 0 color-mix(in srgb, var(--color) 40%, var(--bg-full)),
+				0 4px 0 color-mix(in srgb, var(--color) 30%, var(--bg-full));
+
+			& > .logo {
+				color: var(--color);
+			}
+		}
+
+		& > h2 {
+			/* prettier-ignore */
+			text-shadow:
+				0 2px 0 color-mix(in srgb, var(--color) 30%, var(--bg-full)),
+				0 3px 0 color-mix(in srgb, var(--color) 40%, var(--bg-full));
+		}
+
+		& > .adresses {
+			display: flex;
+			gap: 1rem;
+
+			@media (max-width: 640px) {
+				flex-direction: column;
+			}
+
+			& > img {
+				border: 2px solid var(--bg-0);
+				border-radius: 0.5rem;
+				image-rendering: pixelated;
+				height: 13rem;
+			}
+
+			& > .address {
+				position: relative;
+
+				overflow: auto;
+				overflow-wrap: break-word;
+
+				padding: 0.5rem;
+
+				background-color: var(--bg-4);
+
+				border: 2px solid var(--bg-0);
+				border-radius: 0.5rem;
+				line-height: 2rem;
+
+				& > .copy-to-clipboard {
+					position: absolute;
+					bottom: 0.2rem;
+					right: 0.2rem;
+
+					padding: 0rem 0.25rem;
+
+					--color: var(--color);
+				}
+			}
+		}
+	}
+</style>
