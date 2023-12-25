@@ -1,31 +1,29 @@
 <script lang="ts">
 	import Credits from "@components/Credits.svelte";
-
 	let creditsOpened = false;
 </script>
 
 <Credits bind:opened={creditsOpened} />
 
-<footer
-	class="relative p-1 mt-auto w-full mb-0 flex justify-center items-center bg-dark-400 border-2 border-dark-900 max-w-200 sm:rounded-t-2xl"
->
+<footer>
 	<p class="text-center w-full">&copy; 2023 Im-Beast</p>
-
-	<button
-		title="Credits for used projects"
-		on:click={() => (creditsOpened = true)}
-		class="button mr-1"
-	>
-		<span class="i-mingcute-file-infor-fill" />
-	</button>
-
-	<a
-		title="Source code of this website"
-		href="https://github.com/Im-Beast/Im-Beast.github.io/"
-		rel="noreferrer"
-		target="_blank"
-		class="button mr-1"
-	>
-		<span class="i-mingcute-github-fill" />
-	</a>
 </footer>
+
+<style>
+	footer {
+		display: flex;
+		justify-content: stretch;
+		align-items: center;
+
+		margin-top: auto;
+		margin-bottom: 0.5rem;
+		padding: 0.5rem;
+
+		width: 100%;
+		max-width: 55rem;
+
+		background-color: var(--bg-2);
+		border: 2px solid var(--bg-0);
+		border-radius: 0.4rem;
+	}
+</style>
