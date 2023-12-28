@@ -25,28 +25,6 @@
 	font-size: 19px;
 }
 
-/** TODO: Before adding theme switch, adjust these values **/
-:root.light {
-	--bg-full: #ffffff;
-	--bg-0: #808080;
-	--bg-1: #b3b3b3;
-	--bg-2: #cccccc;
-	--bg-3: #e6e6e6;
-	--bg-4: #eeeeee;
-	--bg-5: #efefef;
-
-	--contrast-full: #000000;
-	--contrast-0: #080808;
-	--contrast-1: #161616;
-	--contrast-2: #232323;
-	--contrast-3: #2f2f2f;
-	--contrast-4: #3a3a3a;
-	--contrast-5: #444444;
-
-	--bg-color: var(--bg-1);
-	--text-color: #080808;
-}
-
 @keyframes bscale {
 	from {
 		background-position: 0 0;
