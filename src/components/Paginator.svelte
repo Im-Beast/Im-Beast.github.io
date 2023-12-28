@@ -20,7 +20,6 @@
 	onMount(() => {
 		refreshElements();
 		resizeContainer();
-		window.addEventListener("resize", resizeContainer);
 	});
 
 	const cursor = writable(0);
@@ -38,6 +37,8 @@
 		}
 	}
 </script>
+
+<svelte:window on:resize={resizeContainer} />
 
 <div class="relative w-full h-full">
 	<section id="elements" bind:this={elementsContainer}>
