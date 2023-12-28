@@ -1,23 +1,16 @@
-<script lang="ts">
-	import Credits from "@components/Credits.svelte";
-	let creditsOpened = false;
-</script>
-
-<Credits bind:opened={creditsOpened} />
-
 <footer>
-	<p class="text-center w-full">&copy; 2023 Im-Beast</p>
+	<p>&copy; 2023 Im-Beast</p>
 </footer>
 
 <style>
 	footer {
 		display: flex;
-		justify-content: stretch;
+		justify-content: center;
 		align-items: center;
 
 		margin-top: auto;
 		margin-bottom: 0.5rem;
-		padding: 0.5rem;
+		padding: 0.75rem;
 
 		width: 100%;
 		max-width: 55rem;

@@ -1,6 +1,4 @@
-// CSS Style reset (preflight)
-import "@unocss/reset/tailwind.css";
-// Enable UnoCSS
-import "virtual:uno.css";
+// Preflight
+import "./preflight.css";
 // Global styles
 import "./app.css";

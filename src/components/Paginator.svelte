@@ -40,7 +40,7 @@
 
 <svelte:window on:resize={resizeContainer} />
 
-<div class="relative w-full h-full">
+<div id="paginator">
 	<section id="elements" bind:this={elementsContainer}>
 		<slot />
 	</section>
@@ -67,6 +67,12 @@
 </div>
 
 <style>
+	#paginator {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
 	#elements {
 		position: relative;
 		gap: 1rem;
@@ -89,6 +95,7 @@
 	#page-dots {
 		display: flex;
 		align-items: center;
+		justify-content: center;
 		gap: 0.5rem;
 
 		& > .page-dot {
@@ -100,15 +107,20 @@
 			width: 0.5rem;
 			height: 0.5rem;
 
+			margin-inline: auto;
+
 			border-radius: 100%;
+			box-shadow: 0 2px 0 var(--bg-1);
 
 			transition: background-color, width, height, 175ms linear;
 
 			&.active {
 				background-color: var(--contrast-full);
-
-				width: 0.75rem;
-				height: 0.75rem;
+				/** The only reason for using box-shadow instead of border here
+						Is that Firefox creates one pixel white gap when
+						using border and transform: scale simultaneously */
+				box-shadow: 0 0 0 1px var(--bg-2);
+				transform: scale(1.5);
 			}
 		}
 	}

@@ -36,8 +36,9 @@
 <script lang="ts">
 	import Paginator from "@components/Paginator.svelte";
 	import ProjectCard from "@components/cards/ProjectCard.svelte";
+	import Icon from "@iconify/svelte";
 
-	import { repositories, filters, filteredRepositories } from "@stores/repositories";
+	import { repositories, filteredRepositories } from "@stores/repositories";
 
 	const GITHUB_USERS_API = "https://api.github.com/users";
 
@@ -127,9 +128,9 @@
 </script>
 
 {#await updateRepositories()}
-	<div class="p-4 w-full flex flex-col justify-center items-center">
-		<p class="my-2">Loading repositories...</p>
-		<span class=" i-mingcute-loading-3-fill text-6xl animate-spin text-blue-400" />
+	<div id="projects-message" class="loading">
+		<h1 class="title">Loading repositories...</h1>
+		<Icon icon="mingcute:loading-3-fill" class="icon" />
 	</div>
 {:then}
 	<Paginator>
@@ -152,9 +153,63 @@
 	</Paginator>
 {:catch error}
 	{void console.error(error) ?? ""}
-	<div class="p-4 w-full flex flex-col justify-center items-center">
-		<strong class="mt-1">Failed to update repositories!</strong>
-		<p class="mb-1">Check console for more info</p>
-		<span class="i-mingcute-alert-fill text-6xl text-yellow-400" />
+	<div id="projects-message" class="error">
+		<h1 class="title">Failed to update repositories!</h1>
+		<p class="message">Check console for more info</p>
+		<Icon icon="mingcute:alert-fill" class="icon" />
 	</div>
 {/await}
+
+<style>
+	@keyframes -global-spin {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	#projects-message {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		padding: 1rem;
+
+		width: 100%;
+
+		&.loading {
+			& > .icon {
+				font-size: 4rem;
+				color: #60a5fa;
+				animation: spin 1s linear infinite;
+			}
+
+			& > .title {
+				margin-bottom: 0.5rem;
+			}
+		}
+
+		&.error {
+			& > .icon {
+				font-size: 4rem;
+				color: #efc744;
+			}
+
+			& > .title {
+				color: #efc744;
+			}
+		}
+
+		& > .title {
+			margin-top: 0.5rem;
+			font-size: 1.1rem;
+		}
+
+		& > .message {
+			margin-bottom: 0.5rem;
+		}
+	}
+</style>

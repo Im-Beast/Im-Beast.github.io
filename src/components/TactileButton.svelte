@@ -53,7 +53,6 @@
 			--shadow-color: var(--bg-1);
 			--shadow-offset: 2px;
 
-			cursor: not-allowed;
 			pointer-events: none;
 		}
 

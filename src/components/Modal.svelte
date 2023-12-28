@@ -10,7 +10,7 @@
 	}}
 	class="modal"
 >
-	<section class="modal-box {$$restProps.class ?? ''}" style={$$restProps.style}>
+	<section class="modal-box {$$props.class ?? ''}" style={$$props.style}>
 		<slot />
 	</section>
 </div>

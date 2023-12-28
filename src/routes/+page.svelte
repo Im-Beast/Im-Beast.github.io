@@ -34,19 +34,19 @@
 </script>
 
 <header>
-	<img height="10rem" width="auto" src="avatar.jpg" alt="Beast's avatar – Mat from Czech cartoon Pat & Mat" />
+	<img height="auto" width="auto" src="avatar.jpg" alt="Beast's avatar – Mat from Czech cartoon Pat & Mat" />
 	<section id="introduction">
 		<section>
 			<!-- TODO: little guy climbing in and replacing "Im-Beast" with "I'm Beast" -->
 			<h1>Hello, Im-Beast</h1>
 			<hr />
-			<p class="leading-tight">
+			<p>
 				I am {age} years old high school student who really enjoys programming. <br />
 				I started learning it about {age - 10} years ago and I still continue to do so! <br />
 				In my free time apart from coding I like playing games
-				<span class="i-solar-gamepad-bold-duotone bg-green-300" />
+				<Icon icon="solar:gamepad-bold" color="#80ff9f" />
 				and <wbr /> watching serials and movies
-				<span class="i-solar-tv-bold-duotone text-blue-300" />
+				<Icon icon="solar:tv-bold" color="#009fff" />
 				.
 				<!--
 					TODO: nice curly arrow when hovered over movies thingy to show my TMDB profile
@@ -129,6 +129,7 @@
 		}
 
 		& > img {
+			height: 12rem;
 			max-width: 12rem;
 
 			margin-right: 1.5rem;

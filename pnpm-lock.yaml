@@ -34,18 +34,6 @@ devDependencies:
   '@typescript-eslint/parser':
     specifier: ^5.62.0
     version: 5.62.0(eslint@8.50.0)(typescript@5.2.2)
-  '@unocss/extractor-svelte':
-    specifier: ^0.51.13
-    version: 0.51.13
-  '@unocss/preset-icons':
-    specifier: ^0.51.13
-    version: 0.51.13
-  '@unocss/reset':
-    specifier: ^0.51.13
-    version: 0.51.13
-  '@unocss/transformer-directives':
-    specifier: ^0.51.13
-    version: 0.51.13
   eslint:
     specifier: ^8.50.0
     version: 8.50.0
@@ -750,10 +738,6 @@ packages:
     resolution: {integrity: sha512-lF7p0ea/MeNf4IsjzNhRNYP8u+f1h5JjhTzcvFpQo/vpBvuM5ZCyqp4mkXxYnLNLFfTLsc+MxXaU34IXxpw1QA==}
     dependencies:
       '@unocss/core': 0.51.13
-    dev: true
-
-  /@unocss/extractor-svelte@0.51.13:
-    resolution: {integrity: sha512-gHMp2kz6EjSxDl6c/zdfhIapF/NKrbsKpnSkuMD11zWvPrxKQl4kO5lcqxuzkFNQ19P/Pd5BvBPUY89da8cRZQ==}
     dev: true
 
   /@unocss/inspector@0.51.13:
