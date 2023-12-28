@@ -44,7 +44,7 @@
 
 		<h2>Address:</h2>
 		<div class="adresses">
-			<img src={qrCodeHref} height="10rem" alt="QR" />
+			<img src={qrCodeHref} width="200" height="200" alt="QR" />
 
 			<code class="address">
 				{address}

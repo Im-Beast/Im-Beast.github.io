@@ -34,7 +34,7 @@
 </script>
 
 <header>
-	<img height="auto" width="auto" src="avatar.jpg" alt="Beast's avatar – Mat from Czech cartoon Pat & Mat" />
+	<img height="200" width="200" src="avatar.jpg" alt="Beast's avatar – Mat from Czech cartoon Pat & Mat" />
 	<section id="introduction">
 		<section>
 			<!-- TODO: little guy climbing in and replacing "Im-Beast" with "I'm Beast" -->
