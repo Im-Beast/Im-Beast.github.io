@@ -19,9 +19,8 @@
 		HTML: "simple-icons:html5",
 		CSS: "simple-icons:css3",
 		Shell: "simple-icons:gnu-bash",
-		Vue: "simple-icons:vue-dot-js",
+		Vue: "simple-icons:vuedotjs",
 		Go: "simple-icons:go",
-		Java: "simple-icons:java",
 		Svelte: "simple-icons:svelte",
 	};
 </script>
