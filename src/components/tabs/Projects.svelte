@@ -62,7 +62,7 @@
 			const parsed: RepositoryCache = JSON.parse(cache);
 			if (user in parsed) {
 				const userCache = parsed[user];
-				return userCache.expireTime > Date.now() ? null : userCache.repositories;
+				return userCache.expireTime < Date.now() ? null : userCache.repositories;
 			}
 		} catch {
 			localStorage.removeItem("cached-repositories");
