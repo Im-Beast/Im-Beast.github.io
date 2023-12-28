@@ -15,6 +15,16 @@
 </section>
 
 <style>
+	:global(.card-logo) {
+		color: var(--color);
+		/* prettier-ignore */
+		filter:
+					drop-shadow(0 0.25px 0 color-mix(in srgb, var(--color) 60%, var(--bg-full)))
+					drop-shadow(0 0.5px 0 color-mix(in srgb, var(--color) 50%, var(--bg-full)))
+					drop-shadow(0 0.75px 0 color-mix(in srgb, var(--color) 40%, var(--bg-full)))
+					drop-shadow(0 1px 0 color-mix(in srgb, var(--color) 30%, var(--bg-full)));
+	}
+
 	.card {
 		--color: #80b0ff;
 		--shadow-color: color-mix(in srgb, var(--color) 60%var (--contrast));

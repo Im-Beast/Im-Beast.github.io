@@ -49,12 +49,12 @@
 			<Icon {color} {icon} />
 		{/if}
 		<p>
-			<span class="i-mingcute-star-fill text-yellow-300" />
+			<Icon icon="mingcute:star-fill" color="#dada50" />
 			{stars}
 		</p>
 		{#if license}
 			<p>
-				<span class="i-solar-file-smile-bold-duotone text-sky-300" />
+				<Icon icon="solar:file-smile-bold" color="#60aa9a" />
 				{license}
 			</p>
 		{/if}

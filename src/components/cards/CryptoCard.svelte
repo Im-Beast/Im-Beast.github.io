@@ -20,7 +20,7 @@
 
 <Card {color}>
 	<svelte:fragment slot="title">
-		<Icon {icon} {color} />
+		<Icon {icon} {color} class="card-logo" />
 		{name}
 	</svelte:fragment>
 
@@ -39,8 +39,7 @@
 
 {#if openedModal}
 	<Modal class="crypto-modal" style="--color: {color}" on:click={() => (openedModal = false)}>
-		<h1>Donate via <span class="logo"><Icon {icon} {color} /> {name}</span></h1>
-
+		<h1>Donate via <Icon class="card-logo" {icon} {color} /> {name}</h1>
 		<hr />
 
 		<h2>Address:</h2>
@@ -78,10 +77,6 @@
 				0 2px 0 color-mix(in srgb, var(--color) 50%, var(--bg-full)),
 				0 3px 0 color-mix(in srgb, var(--color) 40%, var(--bg-full)),
 				0 4px 0 color-mix(in srgb, var(--color) 30%, var(--bg-full));
-
-			& > .logo {
-				color: var(--color);
-			}
 		}
 
 		& > h2 {
