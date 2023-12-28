@@ -94,11 +94,13 @@
 			Donate
 		</TabButton>
 
+		<!--
 		<TabButton color="#4080f0" selected={currentTab === Tab.Experience} on:click={() => (currentTab = Tab.Experience)}>
 			<Icon slot="base-icon" icon="solar:square-academic-cap-outline" />
 			<Icon slot="active-icon" icon="solar:square-academic-cap-bold" />
 			Experience
 		</TabButton>
+		-->
 	</nav>
 
 	<hr />
