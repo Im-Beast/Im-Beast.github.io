@@ -109,7 +109,7 @@
 		const repositoryCache: RepositoryCache = JSON.parse(localStorage.getItem("cached-repositores") ?? "{}");
 		repositoryCache[user] = {
 			repositories: userRepos,
-			expireTime: Date.now() + 60 * 60 * 3, // 3 hours
+			expireTime: Date.now() + 1000 * 60 * 60 * 3, // 3 hours
 		};
 
 		localStorage.setItem("cached-repositories", JSON.stringify(repositoryCache));
