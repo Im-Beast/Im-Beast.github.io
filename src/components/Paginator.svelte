@@ -46,7 +46,7 @@
 	</section>
 
 	<section class="paginator-controls">
-		<TactileButton color="white" disabled={$cursor === 0} on:click={() => ($cursor -= 1)}>
+		<TactileButton aria-label="Previous page" color="white" disabled={$cursor === 0} on:click={() => ($cursor -= 1)}>
 			<Icon slot="base-icon" icon="mingcute:large-arrow-left-line" />
 			<Icon slot="active-icon" icon="mingcute:large-arrow-left-fill" />
 		</TactileButton>
@@ -54,12 +54,12 @@
 		{#if $pages < 15}
 			<section id="page-dots">
 				{#each { length: $pages } as _, i}
-					<span class="page-dot" class:active={i === $cursor} on:click={() => ($cursor = i)} />
+					<button aria-label="Page {i + 1}" class="page-dot" class:active={i === $cursor} on:click={() => ($cursor = i)} />
 				{/each}
 			</section>
 		{/if}
 
-		<TactileButton color="white" disabled={$cursor === $pages - 1} on:click={() => ($cursor += 1)}>
+		<TactileButton aria-label="Next page" color="white" disabled={$cursor === $pages - 1} on:click={() => ($cursor += 1)}>
 			<Icon slot="base-icon" icon="mingcute:large-arrow-right-line" />
 			<Icon slot="active-icon" icon="mingcute:large-arrow-right-fill" />
 		</TactileButton>
