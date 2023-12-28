@@ -99,6 +99,7 @@
 				border-radius: 0.5rem;
 				image-rendering: pixelated;
 				height: 13rem;
+				width: auto;
 			}
 
 			& > .address {

@@ -130,6 +130,7 @@
 
 		& > img {
 			height: 12rem;
+			width: auto;
 			max-width: 12rem;
 
 			margin-right: 1.5rem;
