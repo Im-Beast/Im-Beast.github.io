@@ -14,11 +14,13 @@ This website has been made using:
 
 - [SvelteKit](https://kit.svelte.dev)
 - [TypeScript](https://www.typescriptlang.org/)
-- [UnoCSS](https://unocss.dev/)
+- CSS3
 - [Iconify](https://iconify.design/)
-  - [Mingcute](https://www.mingcute.com/)
+  - [Mingcute](https://github.com/Richard9394/MingCute)
   - [Solar](https://www.figma.com/community/file/1166831539721848736)
-  - [Tabler](https://tabler.io/icons)
+  - [Tabler](https://github.com/tabler/tabler-icons)
+  - [FontAwesome](https://github.com/FortAwesome/Font-Awesome)
+  - [Simple Icons](https://github.com/simple-icons/simple-icons)
 - [Vite](https://vitejs.dev/)
 - [Prettier](https://prettier.io/)
 - [ESLint](https://eslint.org/)
