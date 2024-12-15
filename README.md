@@ -1,32 +1,38 @@
-# 👱🏻‍♂️ My personal website
+# sv
 
-It is deployed via Github Pages, it's available on
-[im-beast.com](https://im-beast.com/) and on
-[im-beast.github.io](https://im-beast.github.io).
+Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
 
-Each push to this repository
-triggers [Github Actions workflow](./.github/workflows/deploy.yml) which builds
-and publishes the website.
+## Creating a project
 
-## 🏭 Tech stack
+If you're seeing this, you've probably already done this step. Congrats!
 
-This website has been made using:
+```bash
+# create a new project in the current directory
+npx sv create
 
-- [SvelteKit](https://kit.svelte.dev)
-- [TypeScript](https://www.typescriptlang.org/)
-- CSS3
-- [Iconify](https://iconify.design/)
-  - [Mingcute](https://github.com/Richard9394/MingCute)
-  - [Solar](https://www.figma.com/community/file/1166831539721848736)
-  - [Tabler](https://github.com/tabler/tabler-icons)
-  - [FontAwesome](https://github.com/FortAwesome/Font-Awesome)
-  - [Simple Icons](https://github.com/simple-icons/simple-icons)
-- [Vite](https://vitejs.dev/)
-- [Prettier](https://prettier.io/)
-- [ESLint](https://eslint.org/)
+# create a new project in my-app
+npx sv create my-app
+```
 
-Huge thanks to creators of these packages (and their dependencies)!
+## Developing
 
-## 📝 Licensing
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-This project is available under **MIT** License conditions.
+```bash
+npm run dev
+
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
+
+## Building
+
+To create a production version of your app:
+
+```bash
+npm run build
+```
+
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.

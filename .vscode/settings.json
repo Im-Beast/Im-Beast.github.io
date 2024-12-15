@@ -1,6 +1,5 @@
 {
 	"svelte.plugin.svelte.compilerWarnings": {
-		// This is ignored because it doesn't detect key handlers that do the same job globally or in other elements
 		"a11y-click-events-have-key-events": "ignore"
 	},
 	"[javascript]": {

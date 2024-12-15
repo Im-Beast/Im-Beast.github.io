@@ -1,188 +1,419 @@
-<script context="module" lang="ts">
-	import type { ComponentType } from "svelte";
-
-	enum Tab {
-		Projects,
-		Donate,
-		Experience,
-	}
-
-	type Tabs = {
-		[key in Tab]: ComponentType;
-	};
-</script>
-
 <script lang="ts">
-	import IconLink from "@components/ContactLink.svelte";
-	import Modal from "@components/Modal.svelte";
-	import TabButton from "@components/TabButton.svelte";
-	import Donate from "@components/tabs/Donate.svelte";
-	import Projects from "@components/tabs/Projects.svelte";
 	import Icon from "@iconify/svelte";
-
-	const age = Math.floor((Date.now() - new Date("05/17/2005").getTime()) / (1000 * 60 * 60 * 24 * 365.25));
-
-	const tabs: Tabs = {
-		[Tab.Projects]: Projects,
-		[Tab.Donate]: Donate,
-		[Tab.Experience]: Modal, // TODO: experience tab
-	};
-
-	let currentTab = Tab.Projects;
-
-	let discordModalOpened = false;
 </script>
-
-<header>
-	<img height="200" width="200" src="avatar.jpg" alt="Beast's avatar – Mat from Czech cartoon Pat & Mat" />
-	<section id="introduction">
-		<section>
-			<!-- TODO: little guy climbing in and replacing "Im-Beast" with "I'm Beast" -->
-			<h1>Hello, Im-Beast</h1>
-			<hr />
-			<p>
-				I am {age} years old high school student who really enjoys programming. <br />
-				I started learning it about {age - 10} years ago and I still continue to do so! <br />
-				In my free time apart from coding I like playing games
-				<Icon icon="solar:gamepad-bold" color="#80ff9f" />
-				and <wbr /> watching serials and movies
-				<Icon icon="solar:tv-bold" color="#009fff" />
-				.
-				<!--
-					TODO: nice curly arrow when hovered over movies thingy to show my TMDB profile
-					or like the ding boom button click effect on the movie button
-				-->
-			</p>
-		</section>
-
-		<address>
-			<IconLink href="https://github.com/Im-Beast" title="Github" color="#151b21">
-				<Icon icon="mingcute:github-fill" />
-			</IconLink>
-
-			<IconLink href="https://twitter.com/1m_Beast" title="Twitter" color="#26a7de">
-				<Icon icon="mingcute:twitter-fill" />
-			</IconLink>
-
-			<IconLink href="https://steamcommunity.com/id/im_beast" title="Steam" gradient={["#06183a", "#145d8f"]}>
-				<Icon icon="fa-brands:steam-symbol" />
-			</IconLink>
-
-			<IconLink href="https://www.themoviedb.org/u/Im-Beast" title="TMDB" gradient={["#01b4e4", "#90cea1"]}>
-				<Icon icon="solar:tv-bold" />
-			</IconLink>
-
-			<IconLink href="https://discord.com/" title="Discord" color="#5662f6" on:click={(e) => e.preventDefault()}>
-				<Icon icon="mingcute:discord-fill" />
-				<!-- TODO: Discord username thingy -->
-			</IconLink>
-		</address>
-	</section>
-</header>
 
 <main>
-	<nav>
-		<TabButton color="#f08040" selected={currentTab === Tab.Projects} on:click={() => (currentTab = Tab.Projects)}>
-			<Icon slot="base-icon" icon="solar:box-outline" />
-			<Icon slot="active-icon" icon="solar:box-bold" />
-			Projects
-		</TabButton>
+	<header>
+		<img src="https://avatars.githubusercontent.com/u/47059999" alt="mat" />
+		<h1>Hello, I'm <span class="highlight">Beast</span></h1>
+	</header>
 
-		<TabButton color="#ff4590" selected={currentTab === Tab.Donate} on:click={() => (currentTab = Tab.Donate)}>
-			<Icon slot="base-icon" icon="solar:heart-outline" />
-			<Icon slot="active-icon" icon="solar:heart-bold" />
-			Donate
-		</TabButton>
+	<section id="contact">
+		<h1>Get in contact</h1>
 
-		<!--
-		<TabButton color="#4080f0" selected={currentTab === Tab.Experience} on:click={() => (currentTab = Tab.Experience)}>
-			<Icon slot="base-icon" icon="solar:square-academic-cap-outline" />
-			<Icon slot="active-icon" icon="solar:square-academic-cap-bold" />
-			Experience
-		</TabButton>
-		-->
-	</nav>
+		{#snippet contactCard(options: {
+			title: string;
+			icon: string;
+			color: string;
+			info?: string;
+			href?: string;
+			handler?: () => void;
+		})}
+			<section class="contact-card" style:--color={options.color}>
+				<div class="actions">
+					<div class="info">
+						{options.info}
+					</div>
 
-	<hr />
+					{#if options.href}
+						<a href={options.href} target="_blank" class="open" on:click={options.handler}>
+							<Icon icon="material-symbols:open-in-new-rounded" />
+						</a>
+					{:else}
+						<button class="open" on:click={options.handler}>
+							<Icon icon="material-symbols:open-in-new-rounded" />
+						</button>
+					{/if}
+				</div>
 
-	<svelte:component this={tabs[currentTab]} />
+				<h2 class="title">
+					<Icon icon={options.icon} />
+					{options.title}
+				</h2>
+			</section>
+		{/snippet}
+
+		<section id="contact-details">
+			{@render contactCard({
+				title: "E-mail",
+				icon: "material-symbols:mail",
+				color: "#606080",
+				info: "franik.mateusz@gmail.com",
+				href: "mailto:franik.mateusz@gmail.com",
+			})}
+
+			{@render contactCard({
+				title: "PGP key",
+				icon: "material-symbols:key",
+				color: "#f0b020",
+				info: "Fingerprint:\n64CF B782\n6005 6D59\n7D55 27AB\n6A64 1064\nE78F AA6E",
+				href: "https://keys.openpgp.org/vks/v1/by-fingerprint/64CFB78260056D597D5527AB6A641064E78FAA6E",
+			})}
+
+			{@render contactCard({
+				title: "GitHub",
+				icon: "simple-icons:github",
+				color: "#1a1f25",
+				href: "https://github.com/Im-Beast",
+			})}
+		</section>
+	</section>
+
+	<section id="sponsor">
+		<h1>Sponsor me!</h1>
+		<h2>If you want of course</h2>
+
+		{#snippet cryptoSponsorCard(options: {
+			title: string;
+			icon: string;
+			color: string;
+			pros: string[];
+			cons: string[];
+		})}
+			<section class="sponsor-card" style:--color={options.color}>
+				<div class="actions">
+					<button class="qr-code">
+						<Icon icon="material-symbols:qr-code-scanner-rounded" />
+					</button>
+				</div>
+
+				<h2 class="title">
+					<Icon icon={options.icon} />
+					{options.title}
+				</h2>
+				<section class="list">
+					{#if options.pros?.length}
+						<div class="pros">
+							<h2>Pros:</h2>
+							<ul class="pros">
+								{#each options.pros as arg}
+									<li>{arg}</li>
+								{/each}
+							</ul>
+						</div>
+					{/if}
+
+					{#if options.cons?.length}
+						<div class="cons">
+							<h2>Cons:</h2>
+							<ul class="cons">
+								{#each options.cons as arg}
+									<li>{arg}</li>
+								{/each}
+							</ul>
+						</div>
+					{/if}
+				</section>
+			</section>
+		{/snippet}
+
+		<section id="sponsor-details">
+			{@render cryptoSponsorCard({
+				color: "#F26822",
+				icon: "simple-icons:monero",
+				title: "Monero",
+				pros: ["Anonymous", "ASIC Resistant", "Low transaction fee"],
+				cons: [],
+			})}
+			{@render cryptoSponsorCard({
+				color: "#F7931A",
+				icon: "simple-icons:bitcoin",
+				title: "Bitcoin",
+				pros: [],
+				cons: ["Trace-able", "Huge power waste", "High transaction fee"],
+			})}
+			{@render cryptoSponsorCard({
+				color: "#497493",
+				icon: "simple-icons:ethereum",
+				title: "Ethereum",
+				pros: [],
+				cons: ["High transaction fee"],
+			})}
+		</section>
+	</section>
 </main>
 
 <style>
-	header {
-		display: flex;
-		align-items: center;
-		padding: 0.5rem;
-
-		width: 100%;
-		max-width: 55rem;
-		height: 100%;
-
-		margin-top: 0.5rem;
-		margin-bottom: auto;
-
-		background-color: var(--bg-2);
-
-		border: 2px solid var(--bg-0);
-		border-radius: 0.4rem;
-
-		@media (max-width: 640px) {
-			flex-direction: column;
+	@keyframes reveal {
+		from {
+			width: 100%;
 		}
 
-		& > img {
-			height: 12rem;
-			width: auto;
-			max-width: 12rem;
+		to {
+			width: 0;
+		}
+	}
 
-			margin-right: 1.5rem;
+	@keyframes highlight {
+		from {
+			background-position: -10%;
 
-			border: 2px solid var(--bg-0);
-			border-radius: 0.6rem;
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
 		}
 
-		& > #introduction {
-			display: flex;
-			flex-direction: column;
+		to {
+			background-position: 100%;
 
-			& > section {
-				padding: 0.5rem;
-			}
-
-			& > address {
-				width: max-content;
-				height: max-content;
-
-				padding: 0rem 0.25rem;
-				padding-bottom: 2px;
-				margin-top: auto;
-				margin-left: auto;
-
-				background-color: var(--bg-4);
-				border: 2px solid var(--bg-0);
-				border-radius: 0.4rem;
-			}
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
 		}
+	}
+
+	.highlight {
+		background: linear-gradient(155deg, var(--fg-color) 0%, #ff43ff 25%, #ff00ff 50%, #ff0000 75%, #ff4343);
+		background-size: 900%;
+		animation: highlight 1250ms ease-out forwards;
 	}
 
 	main {
 		display: flex;
 		flex-direction: column;
-		justify-content: stretch;
+		justify-content: center;
+		padding: 16px;
 
-		margin-top: auto;
-		margin-bottom: auto;
-		padding: 0.5rem;
+		& > header {
+			position: relative;
+			align-self: center;
 
-		width: 100%;
-		max-width: 55rem;
+			text-align: center;
 
-		background-color: var(--bg-2);
-		border: 2px solid var(--bg-0);
-		border-radius: 0.4rem;
+			& > img {
+				width: 50%;
+				border-radius: 24px;
+			}
 
-		@media (min-width: 640px) {
-			margin-block: 0;
+			&::after {
+				content: "";
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 100%;
+				height: 100%;
+
+				animation: reveal 750ms ease-in forwards;
+			}
+
+			& > h1 {
+				font-size: 2rem;
+
+				background: linear-gradient(155deg, var(--fg-color), #808080);
+
+				-webkit-background-clip: text;
+				background-clip: text;
+				color: transparent;
+			}
+		}
+
+		& > #sponsor,
+		& > #contact {
+			& > h1 {
+				font-size: 1.5rem;
+			}
+
+			& > h2 {
+				font-size: 0.8rem;
+				color: #cacaca;
+				padding-left: 4px;
+			}
+		}
+
+		& > #contact {
+			& > #contact-details {
+				margin-top: 8px;
+				display: flex;
+				flex-wrap: wrap;
+
+				gap: 16px;
+				height: 100%;
+
+				& > .contact-card {
+					position: relative;
+
+					display: flex;
+					flex-direction: column;
+					padding: 16px;
+					border-radius: 24px;
+
+					background: linear-gradient(135deg, var(--color), color-mix(in srgb, var(--color), var(--fg-color) 20%));
+
+					transition: transform 450ms var(--bounce-curve);
+
+					& > .actions {
+						position: absolute;
+						content: "";
+
+						top: 0;
+						left: 0;
+						min-width: 100%;
+						width: calc-size(calc-size(max-content, size), size + 24px);
+						min-height: 100%;
+						height: calc-size(calc-size(max-content, size), size + 24px);
+						border-radius: 24px;
+
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						align-items: center;
+
+						background: inherit;
+						backdrop-filter: blur(16px);
+						visibility: hidden;
+						opacity: 0;
+						transition: opacity 450ms var(--bounce-curve);
+
+						& > .info {
+							white-space: pre-line;
+
+							color: white;
+							pointer-events: none;
+							text-align: center;
+							font-weight: 500;
+						}
+
+						& > .open {
+							cursor: pointer;
+							color: white;
+							font-size: 2rem;
+							line-height: 0;
+							text-shadow: 0 0 2px black;
+							appearance: none;
+							background: none;
+							border: none;
+						}
+					}
+
+					&:hover {
+						transform: scale(110%);
+						border-radius: 24px;
+
+						z-index: 1;
+
+						& > .actions {
+							visibility: visible;
+							opacity: 1;
+							text-overflow: auto;
+						}
+					}
+
+					& > .title {
+						color: white;
+						user-select: none;
+						display: flex;
+						align-items: center;
+						gap: 8px;
+					}
+				}
+			}
+		}
+
+		& > #sponsor {
+			& > #sponsor-details {
+				margin-top: 8px;
+				display: flex;
+				flex-wrap: wrap;
+
+				gap: 16px;
+				height: 100%;
+
+				& > .sponsor-card {
+					position: relative;
+
+					display: flex;
+					flex-direction: column;
+					padding: 16px;
+					border-radius: 24px;
+					gap: 8px;
+
+					background: linear-gradient(135deg, var(--color), color-mix(in srgb, var(--color), var(--fg-color) 20%));
+
+					transition: transform 450ms var(--bounce-curve);
+
+					& > .actions {
+						position: absolute;
+						content: "";
+
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+						border-radius: 24px;
+
+						display: flex;
+						justify-content: center;
+						align-items: center;
+
+						opacity: 0;
+						backdrop-filter: blur(16px);
+						transition: opacity 450ms var(--bounce-curve);
+
+						& > .qr-code {
+							cursor: pointer;
+							color: white;
+							font-size: 4rem;
+							line-height: 0;
+							text-shadow: 0 0 2px black;
+							appearance: none;
+							background: none;
+							border: none;
+						}
+					}
+
+					&:hover {
+						transform: scale(110%);
+						border-radius: 24px;
+
+						& > .actions {
+							opacity: 1;
+						}
+					}
+
+					& > .title {
+						color: white;
+						user-select: none;
+						display: flex;
+						align-items: center;
+						gap: 8px;
+					}
+
+					& > .list {
+						user-select: none;
+						display: flex;
+						font-size: 80%;
+
+						ul {
+							list-style-type: none;
+						}
+
+						.pros,
+						.cons {
+							h2 {
+								font-size: 1rem;
+							}
+						}
+
+						.pros > h2 {
+							color: #00ff00;
+						}
+
+						.cons > h2 {
+							color: #ff0000;
+						}
+					}
+				}
+			}
 		}
 	}
 </style>
