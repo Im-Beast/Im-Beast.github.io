@@ -1,38 +1,20 @@
-# sv
+# 👱🏻‍♂️ My personal website
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+It is deployed via Github Pages, it's available on
+[im-beast.com](https://im-beast.com/) and on
+[im-beast.github.io](https://im-beast.github.io).
 
-## Creating a project
+Each push to this repository
+triggers [Github Actions workflow](./.github/workflows/deploy.yml) which builds
+and publishes the website.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Run locally
 
-```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+```sh
+pnpm i
+pnpm dev
 ```
 
-## Developing
+## 📝 Licensing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+This project is available under **MIT** License conditions.
